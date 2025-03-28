@@ -23,16 +23,26 @@ public class Borsa {
         this.listaAttrezzi = new ListaAttrezzi(10); // speriamo bastino...
     }
 
+    /*
+     * forwarding dei metodi add-has-get-remove
+     */
     public boolean addAttrezzo(Attrezzo attrezzo) {
         if (this.listaAttrezzi.getPeso() + attrezzo.getPeso() > this.pesoMax) {
             return false;
         }
-        this.listaAttrezzi.addAttrezzo(attrezzo);
-        return true;
+        return this.listaAttrezzi.addAttrezzo(attrezzo);
     }
 
-   public Attrezzo getAttrezzo(String nomeAttrezzo) {
+    public boolean hasAttrezzo(String nomeAttrezzo) {
+        return this.listaAttrezzi.hasAttrezzo(nomeAttrezzo);
+    }
+
+    public Attrezzo getAttrezzo(String nomeAttrezzo) {
         return this.listaAttrezzi.getAttrezzo(nomeAttrezzo);
+    }
+
+    public boolean removeAttrezzo(Attrezzo attrezzo_da_rimuovere) {
+        return this.listaAttrezzi.removeAttrezzo(attrezzo_da_rimuovere);
     }
 
     public int getPeso() {
@@ -41,14 +51,6 @@ public class Borsa {
 
     public boolean isEmpty() {
         return this.listaAttrezzi.isEmpty();
-    }
-
-    public boolean hasAttrezzo(String nomeAttrezzo) {
-        return this.listaAttrezzi.hasAttrezzo(nomeAttrezzo);
-    }
-
-    public boolean removeAttrezzo(Attrezzo attrezzo_da_rimuovere) {
-        return this.listaAttrezzi.removeAttrezzo(attrezzo_da_rimuovere);
     }
 
     public String toString() {
