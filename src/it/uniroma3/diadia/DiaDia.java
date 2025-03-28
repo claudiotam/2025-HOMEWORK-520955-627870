@@ -39,12 +39,12 @@ public class DiaDia {
 
 	public void gioca() {
 		String istruzione;
-		ioconsole = new IOConsole();
+		this.ioconsole = new IOConsole();
 
 
-		ioconsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
+		this.ioconsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do
-			istruzione = ioconsole.leggiRiga();
+			istruzione = this.ioconsole.leggiRiga();
 		while (!processaIstruzione(istruzione));
 	}
 
@@ -74,16 +74,17 @@ public class DiaDia {
 			this.posa(comandoDaEseguire.getParametro());
 		} 
 		else {
-			ioconsole.mostraMessaggio("Comando sconosciuto");
+			this.ioconsole.mostraMessaggio("Comando sconosciuto");
 		}
 
 		if (this.partita.isFinita()) {
 			if (this.partita.vinta()) {
-				ioconsole.mostraMessaggio("Hai vinto!");
+				this.ioconsole.mostraMessaggio("Hai vinto!");
 			}
 			else {
-				ioconsole.mostraMessaggio("Hai perso!");
+				this.ioconsole.mostraMessaggio("Hai perso!");
 			}
+			this.fine();
 			return true;
 		}
 
@@ -98,17 +99,19 @@ public class DiaDia {
 	 */
 	private void vai(String direzione) {
 		if (direzione == null) {
-			ioconsole.mostraMessaggio("Dove vuoi andare ? Specifica una direzione");
+			this.ioconsole.mostraMessaggio("Dove vuoi andare ? Specifica una direzione");
 			return;
 		}
 		Stanza prossimaStanza = null;
 		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null) {
-			ioconsole.mostraMessaggio("Direzione inesistente");
-			return;
+			this.ioconsole.mostraMessaggio("Direzione inesistente");
 		}
-		this.partita.setStanzaCorrente(prossimaStanza);
-		stampa_stato_partita();
+		else {
+			this.partita.setStanzaCorrente(prossimaStanza);
+		}
+		this.partita.getGiocatore().togliUnCfu();
+		this.stampa_stato_partita();
 	}
 
 	/**
@@ -117,52 +120,53 @@ public class DiaDia {
 	private void aiuto() {
 		for (int i = 0; i < elencoComandi.length; i++)
 			System.out.print(elencoComandi[i] + " ");
-		ioconsole.mostraMessaggio("");
+		this.ioconsole.mostraMessaggio("");
 	}
 
 	/**
 	 * Comando "Fine".
 	 */
 	private void fine() {
-		ioconsole.mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
+		this.ioconsole.mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
 	}
 
 	private void prendi(String nomeAttrezzo) {
 		if (nomeAttrezzo == null) {
-			ioconsole.mostraMessaggio("Quale attrezzo vuoi prendere? Specifica un nome di attrezzo");
+			this.ioconsole.mostraMessaggio("Quale attrezzo vuoi prendere? Specifica un nome di attrezzo");
 			return;
 		}
 		Attrezzo attrezzo = null;
 		attrezzo = this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 		if (attrezzo == null) {
-			ioconsole.mostraMessaggio("Attrezzo inesistente nella stanza");
-			return;
+			this.ioconsole.mostraMessaggio("Attrezzo inesistente nella stanza");
 		}
-		this.partita.prendiAttrezzo(attrezzo);
-		stampa_stato_partita();
+		else {
+			this.partita.prendiAttrezzo(attrezzo);
+		}
+		this.partita.getGiocatore().togliUnCfu();
+		this.stampa_stato_partita();
 	}
 
 	private void posa(String nomeAttrezzo) {
 		if (nomeAttrezzo == null) {
-			ioconsole.mostraMessaggio("Quale attrezzo vuoi posare? Specifica un nome di attrezzo");
+			this.ioconsole.mostraMessaggio("Quale attrezzo vuoi posare? Specifica un nome di attrezzo");
 			return;
 		}
 		Attrezzo attrezzo = null;
-		attrezzo = this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
+		attrezzo = this.partita.getGiocatore().getAttrezzo(nomeAttrezzo);
 		if (attrezzo == null) {
-			ioconsole.mostraMessaggio("Attrezzo inesistente nella borsa");
-			return;
+			this.ioconsole.mostraMessaggio("Attrezzo inesistente nella borsa");
 		}
-		this.partita.posaAttrezzo(attrezzo);
-		stampa_stato_partita();
+		else {
+			this.partita.posaAttrezzo(attrezzo);
+		}
+		this.partita.getGiocatore().togliUnCfu();
+		this.stampa_stato_partita();
 	}
 
 	private void stampa_stato_partita() {
-		int cfu = this.partita.getCfu();
-		this.partita.setCfu(cfu-1);
-		ioconsole.mostraMessaggio(partita.getStanzaCorrente());
-		ioconsole.mostraMessaggio(partita.getGiocatore().getBorsa());
-		ioconsole.mostraMessaggio("cfu: " + cfu);
+		this.ioconsole.mostraMessaggio(this.partita.getStanzaCorrente().getDescrizione());
+		this.ioconsole.mostraMessaggio(this.partita.getGiocatore());
 	}
 
 	public static void main(String[] argc) {

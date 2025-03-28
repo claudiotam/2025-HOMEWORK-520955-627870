@@ -6,13 +6,21 @@ package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
- * 
+ * gestisci il labirinto di stanze
  */
 public class Labirinto {
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
-	public void init() {
+	public Labirinto() {
+		this.crea_stanze();
+	}
+	
+	/*
+	 * Crea tutte le stanze e le porte di collegamento
+	 */
+	public void crea_stanze() {
+		
 		/* crea gli attrezzi */
     	Attrezzo lanterna = new Attrezzo("lanterna", 9);
 		Attrezzo osso = new Attrezzo("osso", 2);
@@ -56,6 +64,7 @@ public class Labirinto {
         this.stanzaCorrente = atrio;  
 		this.stanzaVincente = biblioteca;
 	}
+	
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
 		this.stanzaCorrente = stanzaCorrente;
 	}
@@ -63,6 +72,7 @@ public class Labirinto {
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}
+
 	public Stanza getStanzaVincente() {
 		return this.stanzaVincente;
 	}

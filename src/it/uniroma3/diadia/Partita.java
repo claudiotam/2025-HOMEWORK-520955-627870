@@ -16,22 +16,17 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 public class Partita {
 
 	private Labirinto labirinto;
-	private boolean finita;
 	private Giocatore giocatore;
+	private boolean finita;
 	
-	public Partita(){
-		creaStanze();
-		this.finita = false;
-		this.giocatore = new Giocatore();
-	}
-
     /**
-     * Crea tutte le stanze e le porte di collegamento
+     * 
      */
-    private void creaStanze() {
-    	this.labirinto = new Labirinto();
-    	this.labirinto.init();
-    }
+	public Partita(){
+		this.labirinto = new Labirinto();
+		this.giocatore = new Giocatore();
+		this.finita    = false;
+	}
 
 	public Stanza getStanzaVincente() {
 		return this.labirinto.getStanzaVincente();
@@ -58,40 +53,37 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (this.getCfu() <= 0);
+		return finita || this.vinta() || (this.giocatore.hasZeroCfu());
 	}
 
 	/**
 	 * Imposta la partita come finita
-	 *
 	 */
 	public void setFinita() {
 		this.finita = true;
 	}
 
-	public int getCfu() {
-		return this.giocatore.getCfu();
-	}
-
-	public void setCfu(int cfu) {
-		this.giocatore.setCfu(cfu);	
-	}	
-
 	public Giocatore getGiocatore() {
 		return this.giocatore;
 	}
 
+	/**
+	 * Prendi attrezzo, ossia togli attrezzo alla stanza e metti attrezzo nel giocatore
+	 */
 	public boolean prendiAttrezzo(Attrezzo attrezzo) {
-		boolean test = this.giocatore.getBorsa().addAttrezzo(attrezzo);
+		boolean test = this.giocatore.addAttrezzo(attrezzo);
 		if (!test) return false;
 		this.getStanzaCorrente().removeAttrezzo(attrezzo);
 		return true;
 	}
 
+	/**
+	 * Posa attrezzo, ossia togli attrezzo dal giocatore e metti attrezzo nella stanza
+	 */
 	public boolean posaAttrezzo(Attrezzo attrezzo) {
 		boolean test = this.getStanzaCorrente().addAttrezzo(attrezzo);
 		if (!test) return false;
-		this.giocatore.getBorsa().removeAttrezzo(attrezzo);
+		this.giocatore.removeAttrezzo(attrezzo);
 		return true;
 	}
 

@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+
 /**
  * 
  */
@@ -17,15 +19,38 @@ public class Giocatore {
 
     }
 
-    public Borsa getBorsa() {
-        return this.borsa;
+    /*
+     * forwarding dei metodi add-has-get-remove
+     */
+    public boolean addAttrezzo(Attrezzo attrezzo) {
+        return this.borsa.addAttrezzo(attrezzo) ;
     }
-
-    public int getCfu() {
-        return this.cfu;
+    
+    public boolean hasAttrezzo(String nomeAttrezzo) {
+    	return this.borsa.hasAttrezzo(nomeAttrezzo);
     }
-
-    public void setCfu(int cfu) {
-        this.cfu = cfu;
+    
+    public Attrezzo getAttrezzo(String nomeAttrezzo) {
+    	return this.borsa.getAttrezzo(nomeAttrezzo);
+    }
+    
+    public boolean removeAttrezzo(Attrezzo attrezzo) {
+        return this.borsa.removeAttrezzo(attrezzo) ;
+    }
+    
+    public void togliUnCfu() {
+    	this.cfu--;
+    }
+    
+    public boolean hasZeroCfu() {
+    	return this.cfu <= 0;
+    }
+    
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("Giocatore con " + this.cfu + " cfu");
+        s.append("\n");
+        s.append(borsa);
+        return s.toString();
     }
 }

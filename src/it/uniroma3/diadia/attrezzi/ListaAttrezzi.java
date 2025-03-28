@@ -11,6 +11,9 @@ public class ListaAttrezzi {
         this.numeroAttrezzi = 0;
     }
 
+	/**
+	 * 
+	 */
     public int getPeso() {
         int peso = 0;
         for (int i = 0; i < this.numeroAttrezzi; i++)
@@ -18,6 +21,12 @@ public class ListaAttrezzi {
         return peso;
     }
 
+	/**
+	 * Mette un attrezzo nella lista.
+	 * 
+	 * @param attrezzo l'attrezzo da mettere nella lista.
+	 * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
+	 */
     public boolean addAttrezzo(Attrezzo attrezzo) {
         if (numeroAttrezzi >= numeroMassimoAttrezzi) {
             return false;
@@ -26,6 +35,22 @@ public class ListaAttrezzi {
         return true;
     }
 
+	/**
+	 * Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
+	 * 
+	 * @return true se l'attrezzo esiste nella stanza, false altrimenti.
+	 */
+    public boolean hasAttrezzo(String nomeAttrezzo) {
+    	return this.getAttrezzo(nomeAttrezzo) != null;
+    }
+    
+	/**
+	 * Restituisce l'attrezzo nomeAttrezzo se presente nella stanza.
+	 * 
+	 * @param nomeAttrezzo
+	 * @return l'attrezzo presente nella stanza.
+	 *         null se l'attrezzo non e' presente.
+	 */
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
         for (int i = 0; i < this.numeroAttrezzi; i++) {
             if (this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
@@ -35,10 +60,22 @@ public class ListaAttrezzi {
         return null;
     }
 
-    public Attrezzo[] getAttrezzi() {
-        return this.attrezzi;
-    }
+	/**
+	 * Restituisce la collezione di attrezzi presenti nella stanza.
+	 * Metodo cancellato poichè mai utilizzato
+	 * 
+	 * @return la collezione di attrezzi nella stanza.
+	 */
+    //public Attrezzo[] getAttrezzi() {}
 
+	/**
+	 * Rimuove un attrezzo dalla lista (ricerca in base al riferimento).
+	 * rimuovi TUTTE le occorrenze, anche multiple
+	 * ritorna true se hai rimosso almeno un attrezzo
+	 * 
+	 * @param Attrezzo
+	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
+	 */
     public boolean removeAttrezzo(Attrezzo attrezzo_da_rimuovere) {
         int read = 0;
         int write = 0;
@@ -62,10 +99,16 @@ public class ListaAttrezzi {
         return deleted;
     }
 
+	/**
+	 * ritorna vero se la lista è vuota
+	 */
     public boolean isEmpty() {
         return numeroAttrezzi == 0;
     }
 
+	/**
+	 * stampa la lista attrezzi, un attrezzo alla volta, separati da spazi
+	 */
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < numeroAttrezzi; i++) {
@@ -74,12 +117,4 @@ public class ListaAttrezzi {
         return s.toString();
     }
 
-    public boolean hasAttrezzo(String nomeAttrezzo) {
-        for (int i = 0; i < this.numeroAttrezzi; i++) {
-            if (this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

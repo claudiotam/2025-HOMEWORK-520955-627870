@@ -24,23 +24,19 @@ public class Borsa {
     }
 
     public boolean addAttrezzo(Attrezzo attrezzo) {
-        if (listaAttrezzi.getPeso() + attrezzo.getPeso() > this.pesoMax) {
+        if (this.listaAttrezzi.getPeso() + attrezzo.getPeso() > this.pesoMax) {
             return false;
         }
         this.listaAttrezzi.addAttrezzo(attrezzo);
         return true;
     }
 
-    public int getPesoMax() {
-        return pesoMax;
-    }
-
-    public Attrezzo getAttrezzo(String nomeAttrezzo) {
+   public Attrezzo getAttrezzo(String nomeAttrezzo) {
         return this.listaAttrezzi.getAttrezzo(nomeAttrezzo);
     }
 
     public int getPeso() {
-        return listaAttrezzi.getPeso();
+        return this.listaAttrezzi.getPeso();
     }
 
     public boolean isEmpty() {
@@ -48,7 +44,7 @@ public class Borsa {
     }
 
     public boolean hasAttrezzo(String nomeAttrezzo) {
-        return this.listaAttrezzi.getAttrezzo(nomeAttrezzo) != null;
+        return this.listaAttrezzi.hasAttrezzo(nomeAttrezzo);
     }
 
     public boolean removeAttrezzo(Attrezzo attrezzo_da_rimuovere) {
@@ -57,7 +53,7 @@ public class Borsa {
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("Peso borsa (" + this.getPeso() + "kg/" + this.getPesoMax() + "kg) ");
+        s.append("Peso borsa (" + this.getPeso() + "kg/" + this.pesoMax + "kg) ");
         if (this.isEmpty()) s.append("la borsa è vuota ");
         else {
             s.append("Contenuto borsa: ");
