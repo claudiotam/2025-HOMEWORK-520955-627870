@@ -39,7 +39,7 @@ public class Giocatore {
     }
     
     public void togliUnCfu() {
-    	this.cfu--;
+    	this.cfu --;
     }
     
     public boolean hasZeroCfu() {

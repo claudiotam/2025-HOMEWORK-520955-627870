@@ -36,6 +36,15 @@ public class Attrezzo {
 	}
 
 	/**
+	 * Inverte il nome identificatore dell'attrezzo (chiave->evaihc)
+	 * @return il nome identificatore dell'attrezzo invertito
+	 */
+	public void invertiNomeAumentaPeso() {
+		this.nome = new StringBuilder(this.nome).reverse().toString();
+		this.peso *= 2;
+	}
+
+	/**
 	 * Restituisce il peso dell'attrezzo
 	 * @return il peso dell'attrezzo
 	 */

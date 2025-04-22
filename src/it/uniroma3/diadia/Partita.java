@@ -53,6 +53,11 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
+		/*
+		 * finita: il giocatore ha scelto di finire tramite riga di comando
+		 * vinta:  il giocatore è nella stanza obiettivo
+		 * persa:  il giocatore ha perso tutti i cfu
+		 */
 		return finita || this.vinta() || (this.giocatore.hasZeroCfu());
 	}
 

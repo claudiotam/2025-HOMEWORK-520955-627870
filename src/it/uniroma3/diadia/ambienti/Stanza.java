@@ -141,9 +141,7 @@ public class Stanza {
 	 * stampa l'oggetto stanza in modo carino
 	 */
 	public String toString() {
-		StringBuilder s = new StringBuilder();
-		s.append("Stanza " + this.nome);
-		return s.toString();		
+		return "<oggetto Stanza " + this.nome + ">";		
 	}
 	
 }
