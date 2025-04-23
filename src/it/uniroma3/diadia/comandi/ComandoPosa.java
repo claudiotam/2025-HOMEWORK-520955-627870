@@ -1,29 +1,29 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosa implements Comando {
-    private String    nome_attrezzo;
-    private IOConsole ioconsole;
+    private String nome_attrezzo;
+    private IO ioconsole;
 
     /**
      * esecuzione del comando
      */
     @Override
     public void esegui(Partita partita) {
-		if (nome_attrezzo == null) {
-			this.ioconsole.mostraMessaggio("Quale attrezzo vuoi posare? Specifica un nome di attrezzo");
-			return;
-		}
-		Attrezzo attrezzo = null;
-		attrezzo = partita.getGiocatore().getAttrezzo(nome_attrezzo);
-		if (attrezzo == null) {
-			this.ioconsole.mostraMessaggio("Attrezzo inesistente nella borsa");
-		} else {
-			partita.posaAttrezzo(attrezzo);
-		}
+        if (nome_attrezzo == null) {
+            this.ioconsole.mostraMessaggio("Quale attrezzo vuoi posare? Specifica un nome di attrezzo");
+            return;
+        }
+        Attrezzo attrezzo = null;
+        attrezzo = partita.getGiocatore().getAttrezzo(nome_attrezzo);
+        if (attrezzo == null) {
+            this.ioconsole.mostraMessaggio("Attrezzo inesistente nella borsa");
+        } else {
+            partita.posaAttrezzo(attrezzo);
+        }
     }
 
     /*
@@ -34,11 +34,11 @@ public class ComandoPosa implements Comando {
         this.nome_attrezzo = nome_attrezzo;
     }
 
-    /* 
+    /*
      * impostazione della console
      */
     @Override
-    public void setIOConsole(IOConsole ioconsole) {
-      this.ioconsole = ioconsole;
+    public void setIOConsole(IO ioconsole) {
+        this.ioconsole = ioconsole;
     }
 }

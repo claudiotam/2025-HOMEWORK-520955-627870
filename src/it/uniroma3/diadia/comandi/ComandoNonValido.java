@@ -1,10 +1,10 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoNonValido implements Comando {
-    private IOConsole ioconsole;
+    private IO ioconsole;
 
     /**
      * esecuzione del comando
@@ -21,8 +21,10 @@ public class ComandoNonValido implements Comando {
     public void setParametro(String parametro) {}
 
     /*
-     * impostazione della console (inutile, ma richiesto dalla interface)
+     * impostazione della console
      */
     @Override
-    public void setIOConsole(IOConsole ioconsole) {}
+    public void setIOConsole(IO ioconsole) {
+        this.ioconsole = ioconsole;
+    }
 }

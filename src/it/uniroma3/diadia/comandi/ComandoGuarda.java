@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoGuarda implements Comando {
@@ -22,5 +22,5 @@ public class ComandoGuarda implements Comando {
    * impostazione della console (inutile, ma richiesto dalla interface)
    */
   @Override
-  public void setIOConsole(IOConsole ioconsole) {}
+  public void setIOConsole(IO ioconsole) {}
 }

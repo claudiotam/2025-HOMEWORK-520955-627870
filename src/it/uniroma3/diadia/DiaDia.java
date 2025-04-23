@@ -29,20 +29,22 @@ public class DiaDia {
 			"Comandi disponibili 'vai' 'aiuto' 'fine' 'prendi' 'posa'.";
 
 	private Partita partita;
-	private IOConsole ioconsole;
+	private IO ioconsole;
+	private FabbricaDiComandiFisarmonica factory;
 
-	public DiaDia() {
-		this.partita = new Partita();
+	public DiaDia(IO ioconsole) {
+		this.partita   = new Partita();
+		this.ioconsole = ioconsole;
+		this.factory   = new FabbricaDiComandiFisarmonica(ioconsole);
 	}
 
 	public void gioca() {
 		String istruzione;
-		this.ioconsole = new IOConsole();
-
+		
 		this.ioconsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
-		do
+		do {
 			istruzione = this.ioconsole.leggiRiga();
-		while (!processaIstruzione(istruzione));
+		} while (!processaIstruzione(istruzione));
 	}
 
 	/**
@@ -53,8 +55,7 @@ public class DiaDia {
 	 */
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(ioconsole);
-		comandoDaEseguire = factory.costruisciComando(istruzione);
+		comandoDaEseguire = this.factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		
 		partita.getGiocatore().togliUnCfu();
@@ -79,7 +80,11 @@ public class DiaDia {
 	}
 
 	public static void main(String[] argc) {
-		DiaDia gioco = new DiaDia();
+		//String[] messaggi_in = new String[] {"vai est", "vai est", "fine", "fine", "fine" };
+		//this.ioconsole = new IOSimulator(messaggi_in);
+		IO ioconsole = new IOConsole();
+
+		DiaDia gioco = new DiaDia(ioconsole);
 		gioco.gioca();
 	}
 

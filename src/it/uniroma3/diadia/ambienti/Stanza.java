@@ -71,7 +71,7 @@ public class Stanza {
 	public Stanza getStanzaAdiacente(String direzione) {
 		Stanza stanza = null;
 		for (int i = 0; i < this.numeroStanzeAdiacenti; i++)
-			if (this.direzioni[i].equals(direzione))
+			if (this.direzioni[i].equalsIgnoreCase(direzione))
 				stanza = this.stanzeAdiacenti[i];
 		return stanza;
 	}
