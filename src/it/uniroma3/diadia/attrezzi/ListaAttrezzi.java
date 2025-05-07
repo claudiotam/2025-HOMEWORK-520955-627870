@@ -53,7 +53,7 @@ public class ListaAttrezzi {
 	 */
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
         for (int i = 0; i < this.numeroAttrezzi; i++) {
-            if (this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
+            if (this.attrezzi[i].getNome().equalsIgnoreCase(nomeAttrezzo)) {
                 return this.attrezzi[i];
             }
         }
