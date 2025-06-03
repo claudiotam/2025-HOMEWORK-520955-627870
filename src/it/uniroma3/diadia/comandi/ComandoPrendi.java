@@ -18,7 +18,7 @@ public class ComandoPrendi implements Comando {
 			return;
 		}
 		Attrezzo attrezzo = null;
-		attrezzo = partita.getStanzaCorrente().getAttrezzo(nome_attrezzo);
+		attrezzo = partita.getStanzaCorrente().getAttrezzoConNome(nome_attrezzo);
 		if (attrezzo == null) {
 			this.ioconsole.mostraMessaggio("Attrezzo inesistente nella stanza");
 		} else {

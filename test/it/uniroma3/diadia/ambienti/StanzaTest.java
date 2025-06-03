@@ -2,6 +2,8 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,10 +85,10 @@ class StanzaTest {
     @Test
     public void testGetDirezioni() {
         // Verifica che le direzioni siano correttamente registrate
-        String[] direzioni = this.atrio.getDirezioni();
-        assertEquals(3, direzioni.length, "Le direzioni non sono corrette.");
-        assertTrue(java.util.Arrays.asList(direzioni).contains("nord"), "La direzione 'nord' dovrebbe essere presente.");
-        assertTrue(java.util.Arrays.asList(direzioni).contains("est"), "La direzione 'est' dovrebbe essere presente.");
+        List<String> direzioni = this.atrio.getDirezioni();
+        assertEquals(3, direzioni.size(), "Le direzioni non sono corrette.");
+        assertTrue(direzioni.contains("nord"), "La direzione 'nord' dovrebbe essere presente.");
+        assertTrue(direzioni.contains("est"), "La direzione 'est' dovrebbe essere presente.");
     }
 
 

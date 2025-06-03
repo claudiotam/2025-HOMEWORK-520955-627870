@@ -1,14 +1,16 @@
 package it.uniroma3.diadia.attrezzi;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class ListaAttrezzi {
-    private Attrezzo[] attrezzi;
-    private int numeroAttrezzi;
-    private int numeroMassimoAttrezzi;
-
-    public ListaAttrezzi(int numeroMassimoAttrezzi) {
-        attrezzi = new Attrezzo[numeroMassimoAttrezzi];
-        this.numeroMassimoAttrezzi = numeroMassimoAttrezzi;
-        this.numeroAttrezzi = 0;
+    private HashSet<Attrezzo> attrezzi;
+    
+    public ListaAttrezzi() {
+        attrezzi = new HashSet<Attrezzo> ();
     }
 
 	/**
@@ -16,8 +18,8 @@ public class ListaAttrezzi {
 	 */
     public int getPeso() {
         int peso = 0;
-        for (int i = 0; i < this.numeroAttrezzi; i++)
-            peso += this.attrezzi[i].getPeso();
+        for (Attrezzo attrezzo : this.attrezzi)
+            peso += attrezzo.getPeso();
         return peso;
     }
 
@@ -28,10 +30,14 @@ public class ListaAttrezzi {
 	 * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
 	 */
     public boolean addAttrezzo(Attrezzo attrezzo) {
-        if (numeroAttrezzi >= numeroMassimoAttrezzi) {
-            return false;
-        }
-        this.attrezzi[numeroAttrezzi++] = attrezzo;
+        //todo: convert return false to throw error
+        if (attrezzo == null) return false;
+        this.attrezzi.add(attrezzo);
+        return true;
+    }
+
+    public boolean addAttrezzoConNome(String nome_attrezzo, int peso_attrezzo) {
+        this.attrezzi.add(new Attrezzo(nome_attrezzo, peso_attrezzo));
         return true;
     }
 
@@ -41,7 +47,7 @@ public class ListaAttrezzi {
 	 * @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	 */
     public boolean hasAttrezzo(String nomeAttrezzo) {
-    	return this.getAttrezzo(nomeAttrezzo) != null;
+    	return this.getAttrezzoConNome(nomeAttrezzo) != null;
     }
     
 	/**
@@ -51,13 +57,17 @@ public class ListaAttrezzi {
 	 * @return l'attrezzo presente nella stanza.
 	 *         null se l'attrezzo non e' presente.
 	 */
-    public Attrezzo getAttrezzo(String nomeAttrezzo) {
-        for (int i = 0; i < this.numeroAttrezzi; i++) {
-            if (this.attrezzi[i].getNome().equalsIgnoreCase(nomeAttrezzo)) {
-                return this.attrezzi[i];
+    public Attrezzo getAttrezzoConNome(String nomeAttrezzo) {
+        for (Attrezzo attrezzo : this.attrezzi) {
+            if (attrezzo.getNome().equalsIgnoreCase(nomeAttrezzo)) {
+                return attrezzo;
             }
         }
         return null;
+    }
+
+    public List<Attrezzo> getAttrezzi() {
+        return new ArrayList<Attrezzo> (this.attrezzi);
     }
 
 	/**
@@ -77,33 +87,41 @@ public class ListaAttrezzi {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
     public boolean removeAttrezzo(Attrezzo attrezzo_da_rimuovere) {
-        int read = 0;
-        int write = 0;
-        int attrezzi_old_tot = this.numeroAttrezzi;
-        boolean deleted = false;
-        while (read < attrezzi_old_tot) {
-            Attrezzo at = this.attrezzi[read++];
-            if (at == attrezzo_da_rimuovere) continue;
-            this.attrezzi[write++] = at;
-        }
-        this.numeroAttrezzi = write;
-        /*
-         * cancelliamo gli attrezzi non più indicizzabili (non è chiaro
-         * se gli indici validi sono dati dai null o dai numeroAttrezzi,
-         * manteniamo entrambi i modi attivi e funzionanti)
-         */
-        while (write < attrezzi_old_tot) {
-            this.attrezzi[write++] = null;
-            deleted = true;
-        }
-        return deleted;
+        return this.attrezzi.remove(attrezzo_da_rimuovere);
     }
 
 	/**
 	 * ritorna vero se la lista è vuota
 	 */
     public boolean isEmpty() {
-        return numeroAttrezzi == 0;
+        return this.attrezzi.isEmpty();
+    }
+
+    public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
+        Map<Integer,Set<Attrezzo>> result = new TreeMap<Integer,Set<Attrezzo>> ();
+        for (Attrezzo attrezzo : this.attrezzi) {
+            int peso = attrezzo.getPeso();
+            //TODO: convertire HashSet to TreeSet oppure List, specificare l'ordinamento giusto per Attrezzo
+            if (! result.containsKey(peso)) result.put(peso, new HashSet<Attrezzo> ());
+            result.get(peso).add(attrezzo);
+        }
+        return result;
+    }
+
+    private List<Attrezzo> getContenutoOrdinatoPerPeso() {
+        List<Attrezzo> attrezzo_sorted = new ArrayList<Attrezzo> (this.attrezzi);
+        attrezzo_sorted.sort((Attrezzo a1, Attrezzo a2) -> (a1.getPeso() - a2.getPeso()));
+        return attrezzo_sorted;
+    }
+
+    private List<Attrezzo> getContenutoOrdinatoPerNome() {
+        List<Attrezzo> attrezzo_sorted = new ArrayList<Attrezzo> (this.attrezzi);
+        attrezzo_sorted.sort((Attrezzo a1, Attrezzo a2) -> (a1.getNome().compareTo(a2.getNome())));
+        return attrezzo_sorted;
+    }
+
+    private List<Attrezzo> getContenutoRaw() {
+        return new ArrayList<Attrezzo> (this.attrezzi);
     }
 
 	/**
@@ -111,8 +129,27 @@ public class ListaAttrezzi {
 	 */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < numeroAttrezzi; i++) {
-            s.append(attrezzi[i].toString() + " ");
+        //ordinamento per memoria
+        for (Attrezzo attrezzo : getContenutoRaw()) {
+            s.append(attrezzo.toString() + " ");
+        }
+        return s.toString();
+    }
+
+    public String toStringContenutoDettagliato() {
+        StringBuilder s = new StringBuilder();
+        //ordinamento per memoria
+        s.append("[ord. memoria] ");
+        for (Attrezzo attrezzo : getContenutoRaw()) {
+            s.append(attrezzo.toString() + " ");
+        }
+        s.append("[ord. nome] ");
+        for (Attrezzo attrezzo : getContenutoOrdinatoPerNome()) {
+            s.append(attrezzo.toString() + " ");
+        }
+        s.append("[ord. peso] ");
+        for (Attrezzo attrezzo : getContenutoOrdinatoPerPeso()) {
+            s.append(attrezzo.toString() + " ");
         }
         return s.toString();
     }

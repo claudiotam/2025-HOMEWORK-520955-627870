@@ -35,7 +35,7 @@ public class ComandoPosaTest {
     @Test
     public void testPosaUnAttrezzo() {
         this.com_posa.esegui(partita);
-        assertTrue(partita.getStanzaCorrente().hasAttrezzo("attrezzo test"), "non sono riuscito a posare l'attrezzo nella stanza");
+        assertTrue(partita.getStanzaCorrente().hasAttrezzoConNome("attrezzo test"), "non sono riuscito a posare l'attrezzo nella stanza");
         
     }
 }

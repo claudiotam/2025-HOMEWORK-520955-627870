@@ -29,6 +29,10 @@ public class StanzaMagica extends Stanza {
         this.posatureResidue = posatureResidue;
     }
 
+    public boolean isMagica() {
+        return true;
+    }
+
     @Override
     public boolean addAttrezzo(Attrezzo attrezzo) {
         //nota, la stanza ha vincoli di capienza di peso/quantita/altro; prima di invertire devo testare i vincoli

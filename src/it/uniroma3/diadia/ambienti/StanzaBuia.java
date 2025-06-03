@@ -20,7 +20,7 @@ public class StanzaBuia extends Stanza {
 
     @Override
     public String getDescrizione() {
-        if (this.hasAttrezzo(nome_attrezzo_anti_buio)) {
+        if (this.hasAttrezzoConNome(nome_attrezzo_anti_buio)) {
             return super.getDescrizione();
         }
         else {

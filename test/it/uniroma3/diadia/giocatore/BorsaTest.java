@@ -2,6 +2,10 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +25,7 @@ class BorsaTest {
 
         // Creiamo alcuni attrezzi per testare la borsa
         attrezzoLeggero = new Attrezzo("Spada", 3); // peso 3kg
-        new Attrezzo("Scudo", 8);    }
+    }
 
     @Test
     void LaBorsaIniziaVuota() {
@@ -79,8 +83,8 @@ class BorsaTest {
     }
     
     @Test
-    public void testPrendereAttrezzoBorsaNumeroMassimo() {
-        // Proviamo ad aggiungere più di 10 attrezzi (la borsa è limitata a 10 attrezzi)
+    public void testBorsaPesoMassimo() {
+        // Proviamo ad aggiungere più di 10 chili (la borsa è limitata a 10 chili)
         for (int i = 0; i < 10; i++) {
             Attrezzo att = new Attrezzo("attrezzo" + i, 1);
             borsa.addAttrezzo(att);
@@ -89,5 +93,41 @@ class BorsaTest {
         // Proviamo ad aggiungere un altro attrezzo, ma non dovrebbe essere possibile
         Attrezzo attrezzoInEccesso = new Attrezzo("attrezzoInEccesso", 1);
         assertFalse(borsa.addAttrezzo(attrezzoInEccesso), "Non dovrebbe essere possibile prendere più di 10 attrezzi");
+    }
+    
+    @Test
+    public void testBorsaQuantitaMassima() {
+        // Proviamo ad aggiungere più di 10 attrezzi (la borsa è limitata a 10 attrezzi)
+        for (int i = 0; i < 10; i++) {
+            Attrezzo att = new Attrezzo("attrezzo" + i, 0);
+            borsa.addAttrezzo(att);
+        }
+
+        // Proviamo ad aggiungere un altro attrezzo, ma non dovrebbe essere possibile
+        Attrezzo attrezzoInEccesso = new Attrezzo("attrezzoInEccesso", 1);
+        assertTrue(borsa.addAttrezzo(attrezzoInEccesso), "Non dovrebbe essere possibile prendere più di 10 attrezzi");
+    }
+    
+    @Test
+    public void testaOrdinamentoInutile() {
+        // Creiamo una borsa speciale da 1000kg di capienza
+        Borsa borsacamion = new Borsa(1000);
+
+        // Proviamo ad aggiungere questi attrezzi alla borsa { piombo:10, ps:5, piuma:1, libro:5 }
+        borsacamion.addAttrezzo(new Attrezzo("piombo", 10));
+        borsacamion.addAttrezzo(new Attrezzo("ps",      5));
+        borsacamion.addAttrezzo(new Attrezzo("piuma",   1));
+        borsacamion.addAttrezzo(new Attrezzo("libro",   5));
+
+        //ordiniamo il contenuto in modo inutile
+        Map<Integer,Set<Attrezzo>> ordinati = borsacamion.getContenutoRaggruppatoPerPeso();
+        
+        //prendiamo il primo e il secondo attrezzo di peso 5
+        Iterator<Attrezzo> iter = ordinati.get(5).iterator();
+        Attrezzo pesocinque_primo = iter.next();
+        Attrezzo pesocinque_secon = iter.next();
+
+        //verifica che sono oggetti diversi (nota: metodo equals non sovrascritto)
+        assertNotEquals(pesocinque_primo, pesocinque_secon);
     }
 }

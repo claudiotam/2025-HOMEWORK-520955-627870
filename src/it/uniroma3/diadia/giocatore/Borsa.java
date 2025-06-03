@@ -3,6 +3,9 @@
  */
 package it.uniroma3.diadia.giocatore;
 
+import java.util.Map;
+import java.util.Set;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ListaAttrezzi;
 
@@ -20,7 +23,7 @@ public class Borsa {
 
     public Borsa(int pesoMax) {
         this.pesoMax = pesoMax;
-        this.listaAttrezzi = new ListaAttrezzi(10); // speriamo bastino...
+        this.listaAttrezzi = new ListaAttrezzi();
     }
 
     /*
@@ -33,12 +36,16 @@ public class Borsa {
         return this.listaAttrezzi.addAttrezzo(attrezzo);
     }
 
+    public boolean addAttrezzoConNome(String nome_attrezzo, int peso_attrezzo) {
+        return this.addAttrezzo(new Attrezzo(nome_attrezzo, peso_attrezzo));
+    }
+    
     public boolean hasAttrezzo(String nomeAttrezzo) {
         return this.listaAttrezzi.hasAttrezzo(nomeAttrezzo);
     }
 
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
-        return this.listaAttrezzi.getAttrezzo(nomeAttrezzo);
+        return this.listaAttrezzi.getAttrezzoConNome(nomeAttrezzo);
     }
 
     public boolean removeAttrezzo(Attrezzo attrezzo_da_rimuovere) {
@@ -53,6 +60,10 @@ public class Borsa {
         return this.listaAttrezzi.isEmpty();
     }
 
+    public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
+        return this.listaAttrezzi.getContenutoRaggruppatoPerPeso();
+    }    
+    
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("Peso borsa (" + this.getPeso() + "kg/" + this.pesoMax + "kg) ");
@@ -63,4 +74,16 @@ public class Borsa {
         }
         return s.toString();
     }
+
+    public String getDescrizioneDettagliata() {
+        StringBuilder s = new StringBuilder();
+        s.append("Peso borsa (" + this.getPeso() + "kg/" + this.pesoMax + "kg) ");
+        if (this.isEmpty()) s.append("la borsa è vuota ");
+        else {
+            s.append("Contenuto borsa: ");
+            s.append(this.listaAttrezzi.toStringContenutoDettagliato());
+        }
+        return s.toString();
+    }
+
 }

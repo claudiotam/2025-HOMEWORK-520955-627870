@@ -52,4 +52,11 @@ public class Giocatore {
         s.append(borsa);
         return s.toString();
     }
+
+    public String getDescrizioneDettagliata() {
+        StringBuilder s = new StringBuilder();
+        s.append(borsa.getDescrizioneDettagliata());
+        return s.toString();
+    }
+
 }

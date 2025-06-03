@@ -3,6 +3,9 @@
  */
 package it.uniroma3.diadia.ambienti;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
@@ -11,75 +14,85 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public class Labirinto {
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
+	private Stanza stanzaIniziale;
+	private Map<String, Stanza> stanze;
+	private Stanza stanzaUltimaAggiunta;
 
 	public Labirinto() {
-		this.crea_stanze();
+		this.stanze = new HashMap<String, Stanza> ();
 	}
 	
 	/*
 	 * Crea tutte le stanze e le porte di collegamento
 	 */
-	public void crea_stanze() {
+	public void aggiungi_stanze_default() {
 		
-		/* crea gli attrezzi */
-    	Attrezzo lanterna = new Attrezzo("lanterna",     9);
-		Attrezzo osso     = new Attrezzo("osso",         2);
-		Attrezzo ossino   = new Attrezzo("ossino",       1);
-    	Attrezzo armadio  = new Attrezzo("armadio",    500);
-    	Attrezzo bidone   = new Attrezzo("bidone",       9);
-    	Attrezzo chiave   = new Attrezzo("chiave",       4);
-    	Attrezzo ppt      = new Attrezzo("passepartout", 4);
-		
+		/* crea stanze del labirinto iniziali */
+		this.addStanzaCorrenteConNome("Atrio");
+		this.addAttrezzoConNome(  "osso", 2);
+		this.addAttrezzoConNome("ossino", 1);
+		this.addAttrezzoConNome(   "ppt", 4);
+
+		/* crea stanze del labirinto iniziali */
+		this.addStanzaVincenteConNome("Biblioteca");
+
 		/* crea stanze del labirinto normali */
-		Stanza bibliot = new Stanza("Biblioteca");
-
-		Stanza laborat = new Stanza       ("Laboratorio Campus");
-		Stanza atrio   = new Stanza       ("Atrio");
-		Stanza aulaN11 = new Stanza       ("Aula N11");
-
-		Stanza aulaN10 = new Stanza       ("Aula N10");
 		
-		/* crea stanze del labirinto speciali */
-		Stanza labIA   = new StanzaMagica  ("LabIA");
-		Stanza magaz   = new StanzaBuia    ("Magazzino");
-		Stanza presi   = new StanzaBloccata("Presidenza");
+		this.addStanzaConNome("Laboratorio Campus");
+		
+		this.addStanzaConNome("Aula N10");
+
+		this.addStanzaConNome("Aula N11");
+		this.addAttrezzoConNome("lanterna",   9);
+		this.addAttrezzoConNome(  "bidone",   9);
+		this.addAttrezzoConNome( "armadio", 500);
+    
+		/* crea stanze del labirinto speciali: magiche */
+		this.addStanzaMagicaConNome("LabIA");
+		this.addAttrezzoConNome("chiave",  4);
+
+		/* crea stanze del labirinto speciali: buie */
+		this.addStanzaBuiaConNome("Magazzino");
+
+		/* crea stanze del labirinto speciali: bloccate */
+		this.addStanzaBloccataConNome("Presidenza");
 		
 		/* collega le stanze */
-		laborat.impostaStanzaAdiacente("nord", null);
-		laborat.impostaStanzaAdiacente("sud",   labIA  );
-		laborat.impostaStanzaAdiacente("est",   atrio  );
-		laborat.impostaStanzaAdiacente("ovest", aulaN11);
-		
-		atrio  .impostaStanzaAdiacente("nord",  bibliot);
-		atrio  .impostaStanzaAdiacente("sud",   magaz  );
-		atrio  .impostaStanzaAdiacente("est",   aulaN11);
-		atrio  .impostaStanzaAdiacente("ovest", laborat);
-		
-		aulaN11.impostaStanzaAdiacente("nord", null);
-		aulaN11.impostaStanzaAdiacente("sud",   presi  );
-		aulaN11.impostaStanzaAdiacente("est",   laborat);
-		aulaN11.impostaStanzaAdiacente("ovest", atrio  );
-		
-		labIA  .impostaStanzaAdiacente("nord",  laborat);
-		labIA  .impostaStanzaAdiacente("sud",   aulaN10);
-		labIA   .impostaStanzaAdiacente("est",  magaz  );
-		labIA  .impostaStanzaAdiacente("ovest", presi  );
-		
-		magaz  .impostaStanzaAdiacente("nord",  atrio  );
-		magaz  .impostaStanzaAdiacente("sud",   aulaN10);
-		magaz  .impostaStanzaAdiacente("est",   presi  );
-		magaz  .impostaStanzaAdiacente("ovest", labIA  );
-		
-		presi  .impostaStanzaAdiacente("nord",  aulaN11);
-		presi  .impostaStanzaAdiacente("sud",   aulaN10);
-		presi  .impostaStanzaAdiacente("est",   labIA  );
-		presi  .impostaStanzaAdiacente("ovest", magaz  );
-		
-		aulaN10.impostaStanzaAdiacente("nord",  magaz  );
-		aulaN10.impostaStanzaAdiacente("sud",   null);
-		aulaN10.impostaStanzaAdiacente("est",   presi  );
-		aulaN10.impostaStanzaAdiacente("ovest", labIA  );
-		
+		this.addAdiacenzaConNome("Laboratorio Campus", "nord" , null);
+		this.addAdiacenzaConNome("Laboratorio Campus", "sud"  , "labIA"      );
+		this.addAdiacenzaConNome("Laboratorio Campus", "est"  , "atrio"      );
+		this.addAdiacenzaConNome("Laboratorio Campus", "ovest", "aulaN11"    );
+
+		this.addAdiacenzaConNome("Atrio"             , "nord" , "Biblioteca" );
+		this.addAdiacenzaConNome("Atrio"             , "sud"  , "Magazzino"  );
+		this.addAdiacenzaConNome("Atrio"             , "est"  , "Aula N11"   );
+		this.addAdiacenzaConNome("Atrio"             , "ovest", "Laboratorio Campus");
+
+		this.addAdiacenzaConNome("Aula N11"          , "nord" , null          );
+		this.addAdiacenzaConNome("Aula N11"          , "sud"  , "Presidenza"  );
+		this.addAdiacenzaConNome("Aula N11"          , "est"  , "Laboratorio Campus");
+		this.addAdiacenzaConNome("Aula N11"          , "ovest", "Atrio"       );
+
+		this.addAdiacenzaConNome("LabIA"             , "nord" , "Laboratorio Campus");
+		this.addAdiacenzaConNome("LabIA"             , "sud"  , "Aula N10"    );
+		this.addAdiacenzaConNome("LabIA"             , "est"  , "Magazzino"   );
+		this.addAdiacenzaConNome("LabIA"             , "ovest", "Presidenza"  );
+
+		this.addAdiacenzaConNome("Magazzino"         , "nord" , "Atrio"       );
+		this.addAdiacenzaConNome("Magazzino"         , "sud"  , "Aula N10"    );
+		this.addAdiacenzaConNome("Magazzino"         , "est"  , "Presidenza"  );
+		this.addAdiacenzaConNome("Magazzino"         , "ovest", "LabIA"       );
+
+		this.addAdiacenzaConNome("Presidenza"        , "nord" , "Aula N11"    );
+		this.addAdiacenzaConNome("Presidenza"        , "sud"  , "Aula N10"    );
+		this.addAdiacenzaConNome("Presidenza"        , "est"  , "LabIA"       );
+		this.addAdiacenzaConNome("Presidenza"        , "ovest", "Magazzino"   );
+
+		this.addAdiacenzaConNome("Aula N10"          , "nord" , "Magazzino"   );
+		this.addAdiacenzaConNome("Aula N10"          , "sud"  , null          );
+		this.addAdiacenzaConNome("Aula N10"          , "est"  , "Presidenza"  );
+		this.addAdiacenzaConNome("Aula N10"          , "ovest", "LabIA"       );
+
 		/*
 		 * schema di collegamento
 		 *                bibli
@@ -91,18 +104,6 @@ public class Labirinto {
 		 *        \    -   N10   -   /
 		 */
 		
-        /* pone gli attrezzi nelle stanze */
-		aulaN11.addAttrezzo(lanterna);
-		atrio.addAttrezzo(osso);
-		atrio.addAttrezzo(ossino);
-		atrio.addAttrezzo(ppt);
-		aulaN11.addAttrezzo(bidone);
-		aulaN11.addAttrezzo(armadio);
-		labIA.addAttrezzo(chiave);
-
-		// il gioco comincia nell'atrio
-        this.stanzaCorrente = atrio;  
-		this.stanzaVincente = bibliot;
 	}
 	
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
@@ -116,4 +117,158 @@ public class Labirinto {
 	public Stanza getStanzaVincente() {
 		return this.stanzaVincente;
 	}
+
+	public Stanza getStanzaIniziale() {
+		return this.stanzaIniziale;
+	}
+
+	//questi metodi costruiscono un labirinto pezzo dopo pezzo
+    //il labirinto viene custodito dentro la classe, e non esce finché non si chiama getLabirinto
+
+    
+	public Labirinto getLabirinto() {
+		return this;
+	}
+
+	public Labirinto addStanza(Stanza st) {
+		this.stanze.put(st.getNome(), st);
+		this.stanzaUltimaAggiunta = st;
+		return this;
+	}
+
+	public Labirinto addStanzaCorrente(Stanza st) {
+		this.stanzaCorrente = st;
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaIniziale(Stanza st) {
+		this.stanzaIniziale = st;
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaVincente(Stanza st) {
+		this.stanzaVincente = st;
+		return this.addStanza(st);
+	}
+
+	private Stanza addStanzaConNome_internal(String nome_stanza) {
+		//se il nome della stanza è già nella lista, rifiuta l'inserimento e ritorna il preesistente
+		if (this.stanze.containsKey(nome_stanza)) return this.stanze.get(nome_stanza);
+
+		//se il nome della stanza non c'è, crea una nuova stanza, mettila in lista, ritornala
+		Stanza nuova = new Stanza(nome_stanza);
+		this.stanze.put(nome_stanza, nuova);
+		this.stanzaUltimaAggiunta = nuova;
+		return nuova;
+
+	}
+
+	public Labirinto addStanzaConNome(String nome_stanza) {
+		addStanzaConNome_internal(nome_stanza);
+		return this;
+	}
+
+	public Labirinto addStanzaCorrenteConNome(String nome_stanza) {
+		return this.addStanzaCorrente(this.addStanzaConNome_internal(nome_stanza));
+	}
+
+	public Labirinto addStanzaInizialeConNome(String nome_stanza) {
+		return this.addStanzaIniziale(this.addStanzaConNome_internal(nome_stanza));
+	}
+
+	public Labirinto addStanzaVincenteConNome(String nome_stanza) {
+		return this.addStanzaVincente(this.addStanzaConNome_internal(nome_stanza));
+	}
+
+	public Labirinto addAttrezzo(Attrezzo at) {
+		//aggiungi un attrezzo all'ultima stanza aggiunta
+		return this.addAttrezzo(this.stanzaUltimaAggiunta, at);
+	}
+
+	public Labirinto addAttrezzo(Stanza st, Attrezzo at) {
+		//aggiungi attrezzo at alla stanza st
+		//il chiamante potrebbe tranquillamente chiamarselo da solo <Stanza>.addAttrezzo
+		st.addAttrezzo(at);
+		return this;
+	}
+
+	public Labirinto addAttrezzoConNome(String nome_attrezzo, int peso_attrezzo) {
+		return this.addAttrezzo(new Attrezzo(nome_attrezzo, peso_attrezzo));
+	}
+
+	public Labirinto addAdiacenza(Stanza st_to, String direzione) {
+		//aggiungi adiacenza all'ultima stanza aggiunta
+		this.stanzaUltimaAggiunta.impostaStanzaAdiacente(direzione,  st_to);
+		return this;
+	}
+
+	public Labirinto addAdiacenza(Stanza st_from, String direzione, Stanza st_to) {
+		st_from.impostaStanzaAdiacente(direzione,  st_to);
+		return this;
+	}
+
+
+	public Labirinto addAdiacenzaConNomeParamInvert(String nome_from, String nome_to, String direzione) {
+		return this.addAdiacenzaConNome(nome_from, direzione, nome_to);
+	}
+
+	public Labirinto addAdiacenzaConNome(String nome_from, String direzione, String nome_to) {
+        Stanza st_from = this.stanze.get(nome_from);
+		Stanza st_to   = this.stanze.get(nome_to);
+
+		if ((st_from == null) || (st_to == null)) {
+			//la stanza non è nella lista delle stanze note
+			//todo, lancia una eccezione
+			return this;
+		}
+
+		return this.addAdiacenza(st_from, direzione, st_to);
+	}
+
+	public Map<String, Stanza> getMappaStanze() {
+		return this.stanze;
+	}
+
+	public Labirinto addStanzaMagicaConNome(String nome_st) {
+		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
+		if (this.stanze.containsKey(nome_st)) return this;
+		Stanza st = new StanzaMagica(nome_st);
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaMagicaConNome(String nome_st, Integer soglia_magica) {
+		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
+		if (this.stanze.containsKey(nome_st)) return this;
+		Stanza st = new StanzaMagica(nome_st, soglia_magica);
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaBloccataConNome(String nome_st) {
+		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
+		if (this.stanze.containsKey(nome_st)) return this;
+		Stanza st = new StanzaBloccata(nome_st);
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaBloccataConNome(String nome_st, String nome_attrezzo_anti_bloc, String direz_bloccata) {
+		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
+		if (this.stanze.containsKey(nome_st)) return this;
+		Stanza st = new StanzaBloccata(nome_st, nome_attrezzo_anti_bloc, direz_bloccata);
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaBuiaConNome(String nome_st) {
+		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
+		if (this.stanze.containsKey(nome_st)) return this;
+		Stanza st = new StanzaBuia(nome_st);
+		return this.addStanza(st);
+	}
+
+	public Labirinto addStanzaBuiaConNome(String nome_st, String nome_attrezzo_anti_buio) {
+		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
+		if (this.stanze.containsKey(nome_st)) return this;
+		Stanza st = new StanzaBuia(nome_st, nome_attrezzo_anti_buio);
+		return this.addStanza(st);
+	}
+
 }

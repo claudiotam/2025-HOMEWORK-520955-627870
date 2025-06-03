@@ -24,6 +24,7 @@ public class Partita {
      */
 	public Partita(){
 		this.labirinto = new Labirinto();
+		this.labirinto.aggiungi_stanze_default();
 		this.giocatore = new Giocatore();
 		this.finita    = false;
 	}

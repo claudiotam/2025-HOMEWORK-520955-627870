@@ -19,6 +19,7 @@ public class LabirintoTest {
         // Setup per ogni test, viene eseguito prima di ciascun test
     	// Crea un nuovo labirinto
         this.labirinto = new Labirinto();
+        this.labirinto.aggiungi_stanze_default();
         this.stanzacorrente = this.labirinto.getStanzaCorrente();
         this.stanzavincente = this.labirinto.getStanzaVincente();
     }

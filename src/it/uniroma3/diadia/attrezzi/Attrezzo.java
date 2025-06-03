@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.attrezzi;
 
+import java.util.Objects;
+
 import it.uniroma3.diadia.ambienti.Stanza;
 
 /**
@@ -60,4 +62,19 @@ public class Attrezzo {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
 
+	/*
+	 * fai il possibile per bloccare la creazione di due attrezzi con lo stesso nome
+	 */
+	@Override
+	public boolean equals(Object comp) {
+		if (this == comp) return true;
+		if (!(comp instanceof Attrezzo)) return false;
+		Attrezzo that = (Attrezzo) comp;
+		return this.getNome().equalsIgnoreCase(that.getNome());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getNome().toLowerCase());
+	}
 }
