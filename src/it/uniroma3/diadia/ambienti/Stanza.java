@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ListaAttrezzi;
+import it.uniroma3.diadia.personaggi.Mago;
+import it.uniroma3.diadia.personaggi.Personaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -26,6 +28,8 @@ public class Stanza {
 	private ListaAttrezzi listaAttrezzi;
 	private Map<String, Stanza> direz2stanza;
 
+	private Personaggio personaggio;
+
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
 	 * 
@@ -35,6 +39,14 @@ public class Stanza {
 		this.nome = nome;
 		this.listaAttrezzi = new ListaAttrezzi();
 		this.direz2stanza = new HashMap<String, Stanza>();
+	}
+
+	public void setPersonaggio(Personaggio personaggio) {
+		this.personaggio = personaggio;
+	}
+
+	public Personaggio getPersonaggio() {
+		return this.personaggio;
 	}
 
 	/**
@@ -91,6 +103,10 @@ public class Stanza {
 		return this.listaAttrezzi.getAttrezzi();
 	}
 
+	public void addMago() {
+		this.personaggio = new Mago();
+	}
+
     /*
      * ritorna una lista di stringhe che rappresentano le direzioni possibili
      */
@@ -110,16 +126,28 @@ public class Stanza {
 	 */
 	public String getDescrizione() {
 		StringBuilder s = new StringBuilder();
-		s.append("sei in: " + this.nome);
+
+		//nome stanza
+		s.append("sei in: " );
+		s.append(this.nome);
+
+		//lista uscite
 		s.append("\nUscite: ");
 		for (String direzione : this.getDirezioni()) {
 				s.append(direzione + " ");
 		}
-		if (this.listaAttrezzi.isEmpty()) s.append("\nNessun attrezzo nella stanza ");
-		else {
-			s.append("\nAttrezzi nella stanza: ");
-			s.append(this.listaAttrezzi);
-		}
+
+		//lista attrezzi
+		s.append("\nAttrezzi nella stanza: ");
+		if (this.listaAttrezzi.isEmpty()) s.append("<nessuno> ");
+		else                              s.append(this.listaAttrezzi);
+		
+		//lista personaggi
+		s.append("\nPersonaggi nella stanza: ");
+		if (this.personaggio == null) s.append("<nessuno> ");
+		else                          s.append(this.personaggio.getNome());
+
+		//fin
 		return s.toString();
 	}
 

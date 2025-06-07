@@ -1,12 +1,13 @@
 package it.uniroma3.diadia.comandi;
 
-import java.util.Set;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
-import org.reflections.Reflections;
-import org.reflections.scanners.Scanners;
-import org.reflections.util.ConfigurationBuilder;
+
+//import org.reflections.Reflections;
+//import org.reflections.scanners.Scanners;
+//import org.reflections.util.ConfigurationBuilder;
+//import java.util.Set;
 
 
 public class ComandoAiuto implements Comando {
@@ -17,8 +18,9 @@ public class ComandoAiuto implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-        //this.ioconsole.mostraMessaggio("Comandi disponibili 'vai' 'aiuto' 'fine' 'prendi' 'posa'.");
+        this.ioconsole.mostraMessaggio("Comandi disponibili 'vai' 'aiuto' 'fine' 'prendi' 'posa'.");
 
+        /*
         // Replace with the package that contains your classes
         Reflections reflections = new Reflections(
             new ConfigurationBuilder()
@@ -38,6 +40,7 @@ public class ComandoAiuto implements Comando {
             }
         }
         this.ioconsole.mostraMessaggio(msg);
+        */
     }
 
     /*

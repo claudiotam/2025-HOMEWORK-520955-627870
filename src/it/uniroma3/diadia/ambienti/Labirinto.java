@@ -29,15 +29,14 @@ public class Labirinto {
 		
 		/* crea stanze del labirinto iniziali */
 		this.addStanzaCorrenteConNome("Atrio");
-		this.addAttrezzoConNome(  "osso", 2);
+		this.addAttrezzoConNome("osso"  , 2);
 		this.addAttrezzoConNome("ossino", 1);
-		this.addAttrezzoConNome(   "ppt", 4);
+		this.addAttrezzoConNome("ppt"   , 4);
 
 		/* crea stanze del labirinto iniziali */
 		this.addStanzaVincenteConNome("Biblioteca");
 
 		/* crea stanze del labirinto normali */
-		
 		this.addStanzaConNome("Laboratorio Campus");
 		
 		this.addStanzaConNome("Aula N10");
@@ -46,6 +45,8 @@ public class Labirinto {
 		this.addAttrezzoConNome("lanterna",   9);
 		this.addAttrezzoConNome(  "bidone",   9);
 		this.addAttrezzoConNome( "armadio", 500);
+		this.addMago();
+
     
 		/* crea stanze del labirinto speciali: magiche */
 		this.addStanzaMagicaConNome("LabIA");
@@ -271,4 +272,15 @@ public class Labirinto {
 		return this.addStanza(st);
 	}
 
+	public Labirinto addMago() {
+		//aggiungi un mago all'ultima stanza aggiunta
+		return this.addMago(this.stanzaUltimaAggiunta);
+	}
+
+	public Labirinto addMago(Stanza st) {
+		//aggiungi mago at alla stanza st
+		//il chiamante potrebbe tranquillamente chiamarselo da solo <Stanza>.addMago
+		st.addMago();
+		return this;
+	}
 }
