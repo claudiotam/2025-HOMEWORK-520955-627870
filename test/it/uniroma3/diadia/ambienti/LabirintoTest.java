@@ -30,7 +30,7 @@ public class LabirintoTest {
     }
     @Test
     void VincenteNordIniziale() {
-        assertEquals(this.labirinto.getStanzaVincente(), this.labirinto.getStanzaCorrente().getStanzaAdiacente("nord"));
+        assertEquals(this.labirinto.getStanzaVincente(), this.labirinto.getStanzaCorrente().getStanzaAdiacenteConNome("nord"));
     }
     
     @Test
@@ -51,9 +51,9 @@ public class LabirintoTest {
     public void testCollegamentoTraStanzeAtrio() {
         // Verifica la correttezza dei collegamenti tra le stanze Atrio
         Stanza atrio      = this.stanzacorrente;
-        Stanza atrio_est  = atrio.getStanzaAdiacente("est");
-        Stanza atrio_sud  = atrio.getStanzaAdiacente("sud");
-        Stanza atrio_nord = atrio.getStanzaAdiacente("nord");
+        Stanza atrio_est  = atrio.getStanzaAdiacente(Direzione.EST);
+        Stanza atrio_sud  = atrio.getStanzaAdiacente(Direzione.SUD);
+        Stanza atrio_nord = atrio.getStanzaAdiacente(Direzione.NORD);
         
         assertNotNull(atrio_nord, "Atrio dovrebbe avere una stanza adiacente a nord");
         assertEquals("Biblioteca", atrio_nord.getNome(), "La stanza adiacente a nord dell'Atrio dovrebbe essere 'Biblioteca'");
@@ -68,8 +68,8 @@ public class LabirintoTest {
     @Test
     public void testCollegamentoTraStanzeNonAtrio() {
         // Verifica la correttezza dei collegamenti tra le stanze non Atrio
-        Stanza aulaN10 = this.stanzacorrente.getStanzaAdiacente("sud");
-        Stanza n10_ovest = aulaN10.getStanzaAdiacente("ovest");
+        Stanza aulaN10   = this.stanzacorrente.getStanzaAdiacente(Direzione.SUD);
+        Stanza n10_ovest = aulaN10.getStanzaAdiacente(Direzione.OVEST);
 
         assertNotNull(n10_ovest, "Aula N10 dovrebbe avere un collegamento verso ovest");
         assertEquals("LabIA", n10_ovest.getNome(), "Aula N10 dovrebbe avere un collegamento verso ovest a LabIA");

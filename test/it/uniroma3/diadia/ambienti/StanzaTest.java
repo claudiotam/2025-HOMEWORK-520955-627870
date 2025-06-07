@@ -39,22 +39,22 @@ class StanzaTest {
 		this.aulaN10.addAttrezzo(this.lanterna);
         
         // Collego le stanze
-		this.atrio    .impostaStanzaAdiacente("nord", this.aulaN11);
-		this.atrio    .impostaStanzaAdiacente("est",  this.aulaN10);
-		this.atrio    .impostaStanzaAdiacente("sud",  this.corridoio);
-		this.corridoio.impostaStanzaAdiacente("sud",  this.reception);
-		this.reception.impostaStanzaAdiacente("sud",  this.atrio);
+		this.atrio    .impostaStanzaAdiacente(Direzione.NORD, this.aulaN11);
+		this.atrio    .impostaStanzaAdiacente(Direzione.EST,  this.aulaN10);
+		this.atrio    .impostaStanzaAdiacente(Direzione.SUD,  this.corridoio);
+		this.corridoio.impostaStanzaAdiacente(Direzione.SUD,  this.reception);
+		this.reception.impostaStanzaAdiacente(Direzione.SUD,  this.atrio);
 		
 	}
 
 	@Test
 	public void verificastanzaadiacenteesiste() {
-		assertEquals(this.corridoio, this.atrio.getStanzaAdiacente("sud"));
+		assertEquals(this.corridoio, this.atrio.getStanzaAdiacente(Direzione.SUD));
 	}
 	
 	@Test
 	public void verificastanzaadiacentenonesiste() {
-		assertNull(this.atrio.getStanzaAdiacente("ovest"));
+		assertNull(this.atrio.getStanzaAdiacente(Direzione.OVEST));
 	}
 	
     @Test
@@ -73,11 +73,11 @@ class StanzaTest {
     @Test
     public void testGetStanzaAdiacente() {
         // Verifica che la stanza adiacente venga correttamente restituita
-        Stanza stanzaAdiacenteNord = this.atrio.getStanzaAdiacente("nord");
+        Stanza stanzaAdiacenteNord = this.atrio.getStanzaAdiacente(Direzione.NORD);
         assertNotNull(stanzaAdiacenteNord, "La stanza adiacente a nord dovrebbe essere presente.");
         assertEquals("Aula N11", stanzaAdiacenteNord.getNome(), "La stanza adiacente a nord dovrebbe essere 'Aula N11'");
         
-        Stanza stanzaAdiacenteEst = this.atrio.getStanzaAdiacente("est");
+        Stanza stanzaAdiacenteEst = this.atrio.getStanzaAdiacente(Direzione.EST);
         assertNotNull(stanzaAdiacenteEst, "La stanza adiacente a est dovrebbe essere presente.");
         assertEquals("Aula N10", stanzaAdiacenteEst.getNome(), "La stanza adiacente a est dovrebbe essere 'Aula N10'");
     }
@@ -85,10 +85,10 @@ class StanzaTest {
     @Test
     public void testGetDirezioni() {
         // Verifica che le direzioni siano correttamente registrate
-        List<String> direzioni = this.atrio.getDirezioni();
+        List<Direzione> direzioni = this.atrio.getDirezioni();
         assertEquals(3, direzioni.size(), "Le direzioni non sono corrette.");
-        assertTrue(direzioni.contains("nord"), "La direzione 'nord' dovrebbe essere presente.");
-        assertTrue(direzioni.contains("est"), "La direzione 'est' dovrebbe essere presente.");
+        assertTrue(direzioni.contains(Direzione.NORD), "La direzione 'nord' dovrebbe essere presente.");
+        assertTrue(direzioni.contains(Direzione.EST), "La direzione 'est' dovrebbe essere presente.");
     }
 
 

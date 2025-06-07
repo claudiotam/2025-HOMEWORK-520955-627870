@@ -8,7 +8,6 @@ public class ComandoInteragisci implements Comando {
     private static final String MESSAGGIO_CON_CHI = "Nessun Personaggio nella stanza. Cerca una "+
     "stanza con personaggi. " + 
     "[original: Con chi dovrei interagire?...]";
-    private String messaggio;
     private IO ioconsole;
 
     /**
@@ -18,14 +17,13 @@ public class ComandoInteragisci implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-        Personaggio personaggio;
-        personaggio = partita.getStanzaCorrente().getPersonaggio();
+        Personaggio personaggio = partita.getStanzaCorrente().getPersonaggio();
         if (personaggio == null) {
             this.ioconsole.mostraMessaggio(MESSAGGIO_CON_CHI);
             return;
         }
-        this.messaggio = personaggio.agisci(partita);
-        this.ioconsole.mostraMessaggio(this.messaggio);
+        personaggio.agisci(partita);
+        this.ioconsole.mostraMessaggio(personaggio.getRisposta());
     }
 
     /*

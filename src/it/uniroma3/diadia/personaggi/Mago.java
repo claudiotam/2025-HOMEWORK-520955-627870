@@ -4,12 +4,12 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Mago extends Personaggio {
-    private static final String MESSAGGIO_DONO = "Sei un vero simpaticone, " +
+    private static final String MSG_AZIONE_OK = "Sei un vero simpaticone, " +
             "con una mia magica azione, troverai un nuovo oggetto " +
             "per il tuo borsone! ";
-    private static final String MESSAGGIO_SCUSE = "Mi spiace, ma non ho piu' nulla... ";
+    private static final String MSG_AZIONE_FALLITA = "Mi spiace, ma non ho piu' nulla... ";
     private static final String NOME_DEFAULT = "Ilmago";    
-    private static final String PRESENTAZIONE_DEFAULT = "Io sono Mago Ilmago";    
+    private static final String PRESENTAZIONE_DEFAULT = "La mia qualifica è: Mago. Grazie e Arrivederci. ";
     private static final String NOME_ATTREZZO_DEFAULT = "bacchetta";
 
     /* 
@@ -20,24 +20,28 @@ public class Mago extends Personaggio {
 
     public Mago(String nome, String presentazione, Attrezzo attrezzo) {
         super(nome, presentazione);
+        attrezzo.getNome(); //throws if null
         this.attrezzo = attrezzo;
     }
 
     public Mago() {
-        super(NOME_DEFAULT, PRESENTAZIONE_DEFAULT);
-        this.attrezzo = new Attrezzo(NOME_ATTREZZO_DEFAULT, 1);
+        this(NOME_DEFAULT, PRESENTAZIONE_DEFAULT, new Attrezzo(NOME_ATTREZZO_DEFAULT, 1));
     }
 
     @Override
-    public String agisci(Partita partita) {
-        String msg;
+    public void agisci(Partita partita) {
         if (this.attrezzo != null) {
             partita.getStanzaCorrente().addAttrezzo(this.attrezzo);
             this.attrezzo = null;
-            msg = MESSAGGIO_DONO;
+            this.setRisposta(MSG_AZIONE_OK);
         } else {
-            msg = MESSAGGIO_SCUSE;
+            this.setRisposta(MSG_AZIONE_FALLITA);
         }
-        return msg;
+    }
+    @Override
+    public void riceviRegalo(Partita partita, Attrezzo attrezzo) {
+        this.setRisposta("Grazie! Dimezzo il prezzo all'oggetto chiamato " + attrezzo.getNome() +" e lo rilascio. ");
+        attrezzo.dimezzaPeso();
+        partita.posaAttrezzo(attrezzo);
     }
 }

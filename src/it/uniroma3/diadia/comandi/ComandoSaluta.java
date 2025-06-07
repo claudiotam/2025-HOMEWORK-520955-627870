@@ -2,10 +2,9 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.personaggi.Personaggio;
 
 public class ComandoSaluta implements Comando {
-    private String direzione;
     private IO ioconsole;
 
     /**
@@ -15,27 +14,20 @@ public class ComandoSaluta implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-        Stanza stanzaCorrente = partita.getStanzaCorrente();
-        if (this.direzione == null) {
-            this.ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
+        Personaggio persona = partita.getStanzaCorrente().getPersonaggio();
+        if (persona == null) {
+            this.ioconsole.mostraMessaggio("Nessun salutabile nella stanza. ");
             return;
         }
-        Stanza prossimaStanza = null;
-        prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
-        if (prossimaStanza == null) {
-            this.ioconsole.mostraMessaggio("Direzione inesistente");
-        }
-        else {
-            partita.setStanzaCorrente(prossimaStanza);
-        }
+        persona.preparaRispSaluto();
+        this.ioconsole.mostraMessaggio("Il personaggio dice: " + persona.getRisposta());
     }
 
     /*
-     * impostazione del parametro (cioè la direzione)
+     * impostazione del parametro (???)
      */
     @Override
     public void setParametro(String parametro) {
-        this.direzione = parametro;
     }
 
     /* 

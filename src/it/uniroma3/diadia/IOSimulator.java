@@ -16,11 +16,13 @@ public class IOSimulator implements IO {
         this.messaggi_in_read_cursor = 0;
     }
 
+    @Override
     public void mostraMessaggio(Object msg) {
         // System.out.println(msg);
         this.messaggi_out.add(msg.toString());
     }
 
+    @Override
     public String leggiRiga() {
         // Scanner scannerDiLinee = new Scanner(System.in);
         // String riga = scannerDiLinee.nextLine();
@@ -58,5 +60,9 @@ public class IOSimulator implements IO {
     public ArrayList<String> getMessaggiOut() {
         return this.messaggi_out;
     }
+
+    //non c'è nulla da chiudere, i messaggi sono in memoria ram
+    @Override
+    public void IOchiudi() {}
 
 }

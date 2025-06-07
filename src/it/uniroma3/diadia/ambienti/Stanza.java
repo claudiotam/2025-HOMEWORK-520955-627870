@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ListaAttrezzi;
-import it.uniroma3.diadia.personaggi.Mago;
 import it.uniroma3.diadia.personaggi.Personaggio;
 
 /**
@@ -26,7 +25,7 @@ public class Stanza {
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	private String nome;
 	private ListaAttrezzi listaAttrezzi;
-	private Map<String, Stanza> direz2stanza;
+	private Map<Direzione, Stanza> direz2stanza;
 
 	private Personaggio personaggio;
 
@@ -38,7 +37,7 @@ public class Stanza {
 	public Stanza(String nome) {
 		this.nome = nome;
 		this.listaAttrezzi = new ListaAttrezzi();
-		this.direz2stanza = new HashMap<String, Stanza>();
+		this.direz2stanza = new HashMap<Direzione, Stanza>();
 	}
 
 	public void setPersonaggio(Personaggio personaggio) {
@@ -56,10 +55,11 @@ public class Stanza {
 	 * @param stanza    stanza adiacente nella direzione indicata dal primo
 	 *                  parametro.
 	 */
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+	public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
 		// blocca la creazione di più di quattro direzioni (perché? boh? nei test è così)
 		if (this.direz2stanza.size() >= NUMERO_MASSIMO_DIREZIONI) return;
-		this.direz2stanza.put(direzione.toLowerCase(), stanza);
+
+		this.direz2stanza.put(direzione, stanza);
 	}
 
 	/**
@@ -67,8 +67,12 @@ public class Stanza {
 	 * 
 	 * @param direzione
 	 */
-	public Stanza getStanzaAdiacente(String direzione) {
-		return this.direz2stanza.get(direzione.toLowerCase());
+	public Stanza getStanzaAdiacente(Direzione direzione) {
+		return this.direz2stanza.get(direzione);
+	}
+
+	public Stanza getStanzaAdiacenteConNome(String nome_direzione) {
+		return this.getStanzaAdiacente(Direzione.valueOf(nome_direzione.toUpperCase()));
 	}
 
 	/**
@@ -103,18 +107,21 @@ public class Stanza {
 		return this.listaAttrezzi.getAttrezzi();
 	}
 
-	public void addMago() {
-		this.personaggio = new Mago();
-	}
-
     /*
      * ritorna una lista di stringhe che rappresentano le direzioni possibili
      */
-	public List<String> getDirezioni() {
-		return new ArrayList<String> (this.direz2stanza.keySet());
+	public List<Direzione> getDirezioni() {
+		return new ArrayList<Direzione> (this.direz2stanza.keySet());
+	}
+	public List<String> getDirezioniComeNome() {
+		ArrayList<String> ret = new ArrayList<String> ();
+		for (Direzione direzione : getDirezioni()) {
+			ret.add(direzione.name().toLowerCase());
+		}
+		return ret;
 	}
 
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzione, Stanza> getMapStanzeAdiacenti() {
 		return this.direz2stanza;
 	}
 
@@ -133,8 +140,9 @@ public class Stanza {
 
 		//lista uscite
 		s.append("\nUscite: ");
-		for (String direzione : this.getDirezioni()) {
-				s.append(direzione + " ");
+		if (this.getDirezioni().isEmpty()) s.append("<nessuna> ");
+		else for (Direzione direzione : this.getDirezioni()) {
+				s.append(direzione.name().toLowerCase() + " ");
 		}
 
 		//lista attrezzi

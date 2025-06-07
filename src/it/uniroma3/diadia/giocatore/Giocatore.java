@@ -41,6 +41,10 @@ public class Giocatore {
     	this.cfu --;
     }
     
+    public void mettiUnCfu() {
+    	this.cfu ++;
+    }
+    
     public boolean hasZeroCfu() {
     	return this.cfu <= 0;
     }

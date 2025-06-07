@@ -8,23 +8,23 @@ package it.uniroma3.diadia.ambienti;
  */
 public class StanzaBloccata extends Stanza {
     final static private String NOME_ATTREZZO_ANTI_BLOCCO_DEFAULT = "passepartout";
-    final static private String DIREZIONE_BLOCCATA_DEFAULT        = "est";
-    private String nome_attrezzo_anti_blocco;
-    private String direzione_bloccata;
+    final static private Direzione DIREZIONE_BLOCCATA_DEFAULT        = Direzione.EST;
+    private String    nome_attrezzo_anti_blocco;
+    private Direzione direzione_bloccata;
 
     public StanzaBloccata(String nome) {
         this(nome, NOME_ATTREZZO_ANTI_BLOCCO_DEFAULT, DIREZIONE_BLOCCATA_DEFAULT);
     }
 
-    public StanzaBloccata(String nome, String nome_attrezzo_anti_blocco, String direzione_bloccata) {
+    public StanzaBloccata(String nome, String nome_attrezzo_anti_blocco, Direzione direzione_bloccata) {
         super(nome);
         this.nome_attrezzo_anti_blocco = nome_attrezzo_anti_blocco;
         this.direzione_bloccata = direzione_bloccata;
     }
 
     @Override
-    public Stanza getStanzaAdiacente(String direzione) {
-        if (!direzione.equalsIgnoreCase(this.direzione_bloccata) || this.hasAttrezzoConNome(nome_attrezzo_anti_blocco)) {
+    public Stanza getStanzaAdiacente(Direzione direzione) {
+        if (direzione != this.direzione_bloccata || this.hasAttrezzoConNome(nome_attrezzo_anti_blocco)) {
             return super.getStanzaAdiacente(direzione);
         }
         else {

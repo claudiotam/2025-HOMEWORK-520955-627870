@@ -54,6 +54,10 @@ public class Attrezzo {
 		return this.peso;
 	}
 
+	public void dimezzaPeso() {
+		this.peso = ( this.peso + 1 ) / 2;
+	}
+	
 	/**
 	 * Restituisce una rappresentazione stringa di questo attrezzo
 	 * @return la rappresentazione stringa

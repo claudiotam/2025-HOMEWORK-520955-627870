@@ -9,13 +9,18 @@ public class IOConsole implements IO {
         this.scannerDiLinee = new Scanner(System.in);
     }
 
+    @Override
     public void mostraMessaggio(Object msg) {
         System.out.println(msg);
     }
 
+    @Override
     public String leggiRiga() {
-        String riga = scannerDiLinee.nextLine();
-        //scannerDiLinee.close();
-        return riga;
+        return scannerDiLinee.nextLine();
+    }
+
+    @Override
+    public void IOchiudi() {
+        this.scannerDiLinee.close();
     }
 }

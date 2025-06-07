@@ -86,6 +86,7 @@ public class DiaDia {
 
 		DiaDia gioco = new DiaDia(ioconsole);
 		gioco.gioca();
+		ioconsole.IOchiudi();
 	}
 
 }

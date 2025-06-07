@@ -8,7 +8,7 @@ public class PersonaggioFake extends Personaggio {
     }
 
     @Override
-    public String agisci(Partita partita) {
-        return "done";
+    public void agisci(Partita partita) {
+        return;
     }
 }

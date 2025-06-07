@@ -26,18 +26,18 @@ public class StanzaBloccataTest {
 		//this.magaz.addAttrezzo(  this.lanterna);
 		
         // Collego le stanze
-        this.presi.impostaStanzaAdiacente("est", labIA);
+        this.presi.impostaStanzaAdiacente(Direzione.EST, labIA);
 
 	}
 
 	@Test
 	public void verificaSeLaStanzaHaBlocco() {
-        assertSame(this.presi.getStanzaAdiacente("est") , this.presi, "la stanza bloccata non sta bloccando luscita est");
+        assertSame(this.presi.getStanzaAdiacente(Direzione.EST) , this.presi, "la stanza bloccata non sta bloccando luscita est");
 	}
 
     @Test
 	public void verificaSeLaStanzaNonHaBlocco() {
         this.presi.addAttrezzo(ppt);
-		assertNotSame(this.presi.getStanzaAdiacente("est"), this.presi, "la direzione da sbloccare risulta ancora bloccata");
+		assertNotSame(this.presi.getStanzaAdiacente(Direzione.EST), this.presi, "la direzione da sbloccare risulta ancora bloccata");
 	}
 }
