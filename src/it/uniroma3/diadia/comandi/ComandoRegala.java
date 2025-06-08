@@ -3,7 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.personaggi.Personaggio;
+import it.uniroma3.diadia.personaggi.NPC;
 
 public class ComandoRegala implements Comando {
     private static final String MESSAGGIO_CON_CHI = "Nessun Personaggio a cui regalare "+
@@ -18,7 +18,7 @@ public class ComandoRegala implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-        Personaggio personaggio = partita.getStanzaCorrente().getPersonaggio();
+        NPC personaggio = partita.getStanzaCorrente().getPersonaggio();
         if (personaggio == null) {
             this.ioconsole.mostraMessaggio(MESSAGGIO_CON_CHI);
             return;

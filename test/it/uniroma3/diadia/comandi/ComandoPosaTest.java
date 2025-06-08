@@ -18,7 +18,7 @@ public class ComandoPosaTest {
     public void setup() {
         //crea partita con inclusi labirinto, giocatore, borsa (il comando posa lavora su una partita)
         this.partita   = new Partita();
-
+        
         //crea una console (il comando posa ha bisogno di una console per mostrare gli errori)
         IO ioconsole   = new IOConsole();
 

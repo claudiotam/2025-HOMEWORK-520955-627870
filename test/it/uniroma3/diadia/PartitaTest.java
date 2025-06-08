@@ -19,6 +19,7 @@ class PartitaTest {
 	void setUp() {
         // Setup del test, viene eseguito prima di ogni test.
 		this.partita     = new Partita();
+        
 		this.giocatore   = this.partita.getGiocatore();
 	}
 

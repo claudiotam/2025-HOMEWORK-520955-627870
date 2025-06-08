@@ -18,7 +18,7 @@ public class ComandoPrendiTest {
     public void setup() {
         //crea partita con inclusi labirinto, giocatore, borsa (il comando posa lavora su una partita)
         this.partita      = new Partita();
-
+        
         //crea una console (il comando prendi ha bisogno di una console per mostrare gli errori)
         IO ioconsole      = new IOConsole();
 

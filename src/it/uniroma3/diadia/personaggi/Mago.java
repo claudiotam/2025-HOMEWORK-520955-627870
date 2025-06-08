@@ -3,7 +3,7 @@ package it.uniroma3.diadia.personaggi;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class Mago extends Personaggio {
+public class Mago extends NPC {
     private static final String MSG_AZIONE_OK = "Sei un vero simpaticone, " +
             "con una mia magica azione, troverai un nuovo oggetto " +
             "per il tuo borsone! ";

@@ -32,72 +32,72 @@ public class Labirinto {
 	public void aggiungi_stanze_default() {
 		
 		/* crea stanze del labirinto iniziali */
-		this.addStanzaCorrenteConNome("Atrio");
-		this.addAttrezzoConNome("osso"  , 2);
-		this.addAttrezzoConNome("ossino", 1);
-		this.addAttrezzoConNome("ppt"   , 4);
+		this.addStanzaCorrente("Atrio");
+		this.addAttrezzo("osso"  , 2);
+		this.addAttrezzo("ossino", 1);
+		this.addAttrezzo("ppt"   , 4);
 
 		/* crea stanze del labirinto iniziali */
-		this.addStanzaVincenteConNome("Biblioteca");
+		this.addStanzaVincente("Biblioteca");
 
 		/* crea stanze del labirinto normali */
-		this.addStanzaConNome("Laboratorio Campus");
+		this.addStanza("Laboratorio Campus");
 		
-		this.addStanzaConNome("Aula N10");
+		this.addStanza("Aula N10");
 
-		this.addStanzaConNome("Aula N11");
-		this.addAttrezzoConNome("lanterna",   9);
-		this.addAttrezzoConNome(  "bidone",   9);
-		this.addAttrezzoConNome( "armadio", 500);
+		this.addStanza("Aula N11");
+		this.addAttrezzo("lanterna",   9);
+		this.addAttrezzo(  "bidone",   9);
+		this.addAttrezzo( "armadio", 500);
 		this.addAttrezzo       (new CiboPreferitoCane());
 		this.addCane();
 		this.addMago();
     
 		/* crea stanze del labirinto speciali: magiche */
-		this.addStanzaMagicaConNome("LabIA");
-		this.addAttrezzoConNome("chiave",  4);
+		this.addStanzaMagica("LabIA");
+		this.addAttrezzo("chiave",  4);
 
 		/* crea stanze del labirinto speciali: buie */
-		this.addStanzaBuiaConNome("Magazzino");
+		this.addStanzaBuia("Magazzino");
 
 		/* crea stanze del labirinto speciali: bloccate */
-		this.addStanzaBloccataConNome("Presidenza");
+		this.addStanzaBloccata("Presidenza");
 		
 		/* collega le stanze */
-		this.addAdiacenzaConNome("Laboratorio Campus", Direzione.NORD , null         );
-		this.addAdiacenzaConNome("Laboratorio Campus", Direzione.SUD  , "LabIA"      );
-		this.addAdiacenzaConNome("Laboratorio Campus", Direzione.EST  , "Atrio"      );
-		this.addAdiacenzaConNome("Laboratorio Campus", Direzione.OVEST, "Aula N11"   );
+		this.addAdiacenza("Laboratorio Campus", Direzione.NORD , null         );
+		this.addAdiacenza("Laboratorio Campus", Direzione.SUD  , "LabIA"      );
+		this.addAdiacenza("Laboratorio Campus", Direzione.EST  , "Atrio"      );
+		this.addAdiacenza("Laboratorio Campus", Direzione.OVEST, "Aula N11"   );
 
-		this.addAdiacenzaConNome("Atrio"             , Direzione.NORD , "Biblioteca" );
-		this.addAdiacenzaConNome("Atrio"             , Direzione.SUD  , "Magazzino"  );
-		this.addAdiacenzaConNome("Atrio"             , Direzione.EST  , "Aula N11"   );
-		this.addAdiacenzaConNome("Atrio"             , Direzione.OVEST, "Laboratorio Campus");
+		this.addAdiacenza("Atrio"             , Direzione.NORD , "Biblioteca" );
+		this.addAdiacenza("Atrio"             , Direzione.SUD  , "Magazzino"  );
+		this.addAdiacenza("Atrio"             , Direzione.EST  , "Aula N11"   );
+		this.addAdiacenza("Atrio"             , Direzione.OVEST, "Laboratorio Campus");
 
-		this.addAdiacenzaConNome("Aula N11"          , Direzione.NORD , null          );
-		this.addAdiacenzaConNome("Aula N11"          , Direzione.SUD  , "Presidenza"  );
-		this.addAdiacenzaConNome("Aula N11"          , Direzione.EST  , "Laboratorio Campus");
-		this.addAdiacenzaConNome("Aula N11"          , Direzione.OVEST, "Atrio"       );
+		this.addAdiacenza("Aula N11"          , Direzione.NORD , null          );
+		this.addAdiacenza("Aula N11"          , Direzione.SUD  , "Presidenza"  );
+		this.addAdiacenza("Aula N11"          , Direzione.EST  , "Laboratorio Campus");
+		this.addAdiacenza("Aula N11"          , Direzione.OVEST, "Atrio"       );
 
-		this.addAdiacenzaConNome("LabIA"             , Direzione.NORD , "Laboratorio Campus");
-		this.addAdiacenzaConNome("LabIA"             , Direzione.SUD  , "Aula N10"    );
-		this.addAdiacenzaConNome("LabIA"             , Direzione.EST  , "Magazzino"   );
-		this.addAdiacenzaConNome("LabIA"             , Direzione.OVEST, "Presidenza"  );
+		this.addAdiacenza("LabIA"             , Direzione.NORD , "Laboratorio Campus");
+		this.addAdiacenza("LabIA"             , Direzione.SUD  , "Aula N10"    );
+		this.addAdiacenza("LabIA"             , Direzione.EST  , "Magazzino"   );
+		this.addAdiacenza("LabIA"             , Direzione.OVEST, "Presidenza"  );
 
-		this.addAdiacenzaConNome("Magazzino"         , Direzione.NORD , "Atrio"       );
-		this.addAdiacenzaConNome("Magazzino"         , Direzione.SUD  , "Aula N10"    );
-		this.addAdiacenzaConNome("Magazzino"         , Direzione.EST  , "Presidenza"  );
-		this.addAdiacenzaConNome("Magazzino"         , Direzione.OVEST, "LabIA"       );
+		this.addAdiacenza("Magazzino"         , Direzione.NORD , "Atrio"       );
+		this.addAdiacenza("Magazzino"         , Direzione.SUD  , "Aula N10"    );
+		this.addAdiacenza("Magazzino"         , Direzione.EST  , "Presidenza"  );
+		this.addAdiacenza("Magazzino"         , Direzione.OVEST, "LabIA"       );
 
-		this.addAdiacenzaConNome("Presidenza"        , Direzione.NORD , "Aula N11"    );
-		this.addAdiacenzaConNome("Presidenza"        , Direzione.SUD  , "Aula N10"    );
-		this.addAdiacenzaConNome("Presidenza"        , Direzione.EST  , "LabIA"       );
-		this.addAdiacenzaConNome("Presidenza"        , Direzione.OVEST, "Magazzino"   );
+		this.addAdiacenza("Presidenza"        , Direzione.NORD , "Aula N11"    );
+		this.addAdiacenza("Presidenza"        , Direzione.SUD  , "Aula N10"    );
+		this.addAdiacenza("Presidenza"        , Direzione.EST  , "LabIA"       );
+		this.addAdiacenza("Presidenza"        , Direzione.OVEST, "Magazzino"   );
 
-		this.addAdiacenzaConNome("Aula N10"          , Direzione.NORD , "Magazzino"   );
-		this.addAdiacenzaConNome("Aula N10"          , Direzione.SUD  , null          );
-		this.addAdiacenzaConNome("Aula N10"          , Direzione.EST  , "Presidenza"  );
-		this.addAdiacenzaConNome("Aula N10"          , Direzione.OVEST, "LabIA"       );
+		this.addAdiacenza("Aula N10"          , Direzione.NORD , "Magazzino"   );
+		this.addAdiacenza("Aula N10"          , Direzione.SUD  , null          );
+		this.addAdiacenza("Aula N10"          , Direzione.EST  , "Presidenza"  );
+		this.addAdiacenza("Aula N10"          , Direzione.OVEST, "LabIA"       );
 
 		/*
 		 * schema di collegamento
@@ -157,7 +157,19 @@ public class Labirinto {
 		return this.addStanza(st);
 	}
 
-	private Stanza addStanzaConNome_internal(String nome_stanza) {
+	public Labirinto addStanzaCorrente(String nome_stanza) {
+		return this.addStanzaCorrente(this.nomeStanza2ObjectStanza(nome_stanza));
+	}
+
+	public Labirinto addStanzaIniziale(String nome_stanza) {
+		return this.addStanzaIniziale(this.nomeStanza2ObjectStanza(nome_stanza));
+	}
+
+	public Labirinto addStanzaVincente(String nome_stanza) {
+		return this.addStanzaVincente(this.nomeStanza2ObjectStanza(nome_stanza));
+	}
+
+	private Stanza nomeStanza2ObjectStanza(String nome_stanza) {
 		//se il nome della stanza è già nella lista, rifiuta l'inserimento e ritorna il preesistente
 		if (this.stanze.containsKey(nome_stanza)) return this.stanze.get(nome_stanza);
 
@@ -169,21 +181,9 @@ public class Labirinto {
 
 	}
 
-	public Labirinto addStanzaConNome(String nome_stanza) {
-		addStanzaConNome_internal(nome_stanza);
+	public Labirinto addStanza(String nome_stanza) {
+		nomeStanza2ObjectStanza(nome_stanza);
 		return this;
-	}
-
-	public Labirinto addStanzaCorrenteConNome(String nome_stanza) {
-		return this.addStanzaCorrente(this.addStanzaConNome_internal(nome_stanza));
-	}
-
-	public Labirinto addStanzaInizialeConNome(String nome_stanza) {
-		return this.addStanzaIniziale(this.addStanzaConNome_internal(nome_stanza));
-	}
-
-	public Labirinto addStanzaVincenteConNome(String nome_stanza) {
-		return this.addStanzaVincente(this.addStanzaConNome_internal(nome_stanza));
 	}
 
 	public Labirinto addAttrezzo(Attrezzo at) {
@@ -198,7 +198,7 @@ public class Labirinto {
 		return this;
 	}
 
-	public Labirinto addAttrezzoConNome(String nome_attrezzo, int peso_attrezzo) {
+	public Labirinto addAttrezzo(String nome_attrezzo, int peso_attrezzo) {
 		return this.addAttrezzo(new Attrezzo(nome_attrezzo, peso_attrezzo));
 	}
 
@@ -208,72 +208,78 @@ public class Labirinto {
 		return this;
 	}
 
+	public Labirinto addAdiacenzaParamInvert(String nome_from, String nome_to, String nome_direzione) {
+		return this.addAdiacenza(nome_from, Direzione.valueOf(nome_direzione.toUpperCase()), nome_to);
+	}
+
 	public Labirinto addAdiacenza(Stanza st_from, Direzione direzione, Stanza st_to) {
 		st_from.impostaStanzaAdiacente(direzione,  st_to);
 		return this;
 	}
 
-
-	public Labirinto addAdiacenzaConNomeParamInvert(String nome_from, String nome_to, String nome_direzione) {
-		return this.addAdiacenzaConNome(nome_from, Direzione.valueOf(nome_direzione.toUpperCase()), nome_to);
+	public Labirinto addAdiacenza(Stanza st_from, String nome_direzione, Stanza st_to) {
+		return this.addAdiacenza(st_from, Direzione.valueOf(nome_direzione), st_to);
 	}
 
-	public Labirinto addAdiacenzaConNome(String nome_from, Direzione direzione, String nome_to) {
-        Stanza st_from = this.stanze.get(nome_from);
-		Stanza st_to   = this.stanze.get(nome_to);
+	public Labirinto addAdiacenza(String nome_from, Direzione direzione, String nome_to) {
+		if (nome_to == null) return this;
+		this.checkNomeStanzaOccupato(nome_from);
+		this.checkNomeStanzaOccupato(nome_to);
+		return this.addAdiacenza(this.stanze.get(nome_from), direzione, this.stanze.get(nome_to));
+	}
 
-		if ((nome_from != null) && (st_from == null)) {
-			throw new IllegalArgumentException("stanza "+nome_from+" inesistente, non posso collegarla a "+nome_to);
-		}
-		if ((nome_to != null) && (st_to == null)) {
-			throw new IllegalArgumentException("stanza "+nome_to+" inesistente, non posso collegarla da "+nome_from);
-		}
-
-		return this.addAdiacenza(st_from, direzione, st_to);
+	public Labirinto addAdiacenza(String nome_from, String nome_direzione, String nome_to) {
+		return this.addAdiacenza(nome_from, Direzione.valueOf(nome_direzione), nome_to);
 	}
 
 	public Map<String, Stanza> getMappaStanze() {
 		return this.stanze;
 	}
 
-	public Labirinto addStanzaMagicaConNome(String nome_st) {
-		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
-		if (this.stanze.containsKey(nome_st)) return this;
+	public void checkNomeStanzaLibero(String nome_st) {
+		if (this.stanze.containsKey(nome_st)) {
+			throw new IllegalArgumentException("il nome per la stanza ("+nome_st+") è occupato, ma dovrebbe essere libero");
+		}
+	}
+	
+	public void checkNomeStanzaOccupato(String nome_st) {
+		if (!this.stanze.containsKey(nome_st)) {
+			throw new IllegalArgumentException("il nome per la stanza ("+nome_st+") è libero, ma dovrebbe essere occupato");
+		}
+	}
+	
+	public Labirinto addStanzaMagica(String nome_st) {
+		checkNomeStanzaLibero(nome_st);
 		Stanza st = new StanzaMagica(nome_st);
 		return this.addStanza(st);
 	}
 
-	public Labirinto addStanzaMagicaConNome(String nome_st, Integer soglia_magica) {
-		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
-		if (this.stanze.containsKey(nome_st)) return this;
+	public Labirinto addStanzaMagica(String nome_st, Integer soglia_magica) {
+		checkNomeStanzaLibero(nome_st);
 		Stanza st = new StanzaMagica(nome_st, soglia_magica);
 		return this.addStanza(st);
 	}
 
-	public Labirinto addStanzaBloccataConNome(String nome_st) {
-		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
-		if (this.stanze.containsKey(nome_st)) return this;
+	public Labirinto addStanzaBloccata(String nome_st) {
+		checkNomeStanzaLibero(nome_st);
 		Stanza st = new StanzaBloccata(nome_st);
 		return this.addStanza(st);
 	}
 
-	public Labirinto addStanzaBloccataConNome(String nome_st, String nome_attrezzo_anti_bloc, String nome_direz_bloccata) {
-		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
-		if (this.stanze.containsKey(nome_st)) return this;
+	public Labirinto addStanzaBloccata(String nome_st, String nome_attrezzo_anti_bloc, String nome_direz_bloccata) {
+		checkNomeStanzaLibero(nome_st);
 		Stanza st = new StanzaBloccata(nome_st, nome_attrezzo_anti_bloc, Direzione.valueOf(nome_direz_bloccata.toUpperCase()));
 		return this.addStanza(st);
 	}
 
-	public Labirinto addStanzaBuiaConNome(String nome_st) {
-		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
-		if (this.stanze.containsKey(nome_st)) return this;
+	public Labirinto addStanzaBuia(String nome_st) {
+		checkNomeStanzaLibero(nome_st);
 		Stanza st = new StanzaBuia(nome_st);
 		return this.addStanza(st);
 	}
 
-	public Labirinto addStanzaBuiaConNome(String nome_st, String nome_attrezzo_anti_buio) {
-		//non posso cambiare una stanza da speciale a normale, il metodo fallisce subito (TODO: lanciare eccez)
-		if (this.stanze.containsKey(nome_st)) return this;
+	public Labirinto addStanzaBuia(String nome_st, String nome_attrezzo_anti_buio) {
+		checkNomeStanzaLibero(nome_st);
 		Stanza st = new StanzaBuia(nome_st, nome_attrezzo_anti_buio);
 		return this.addStanza(st);
 	}

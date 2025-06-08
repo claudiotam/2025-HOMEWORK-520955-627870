@@ -4,7 +4,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class Strega extends Personaggio {
+public class Strega extends NPC {
     private static final String MSG_AZIONE_OK = "Sei stato teletrasportato in un'altra stanza! ";
     private static final String MSG_AZIONE_FALLITA = "Mi spiace, ti ho già teletrasportato una volta... ";
     private static final String NOME_DEFAULT = "Lastrega";    

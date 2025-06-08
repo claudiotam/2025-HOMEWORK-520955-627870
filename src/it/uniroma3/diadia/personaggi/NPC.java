@@ -3,13 +3,13 @@ package it.uniroma3.diadia.personaggi;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public abstract class Personaggio {
+public abstract class NPC {
     private String  nome;
     private String  presentazione;
     private boolean haSalutato;
     private String  risposta;
 
-    public Personaggio(String nome, String presentazione) {
+    public NPC(String nome, String presentazione) {
         this.nome = nome;
         this.presentazione = presentazione;
         this.haSalutato = false;

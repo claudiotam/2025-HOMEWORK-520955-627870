@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ListaAttrezzi;
-import it.uniroma3.diadia.personaggi.Personaggio;
+import it.uniroma3.diadia.personaggi.NPC;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -27,24 +27,24 @@ public class Stanza {
 	private ListaAttrezzi listaAttrezzi;
 	private Map<Direzione, Stanza> direz2stanza;
 
-	private Personaggio personaggio;
+	private NPC personaggio;
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
 	 * 
 	 * @param nome il nome della stanza
 	 */
-	public Stanza(String nome) {
-		this.nome = nome;
+	public Stanza(String nome_stanza) {
+		this.nome = nome_stanza;
 		this.listaAttrezzi = new ListaAttrezzi();
 		this.direz2stanza = new HashMap<Direzione, Stanza>();
 	}
 
-	public void setPersonaggio(Personaggio personaggio) {
+	public void setPersonaggio(NPC personaggio) {
 		this.personaggio = personaggio;
 	}
 
-	public Personaggio getPersonaggio() {
+	public NPC getPersonaggio() {
 		return this.personaggio;
 	}
 
@@ -72,7 +72,9 @@ public class Stanza {
 	}
 
 	public Stanza getStanzaAdiacenteConNome(String nome_direzione) {
-		return this.getStanzaAdiacente(Direzione.valueOf(nome_direzione.toUpperCase()));
+		Direzione direzione = Direzione.fromStringIgnoreCase(nome_direzione);
+		if (direzione == null) return null;
+		return this.getStanzaAdiacente(direzione);
 	}
 
 	/**

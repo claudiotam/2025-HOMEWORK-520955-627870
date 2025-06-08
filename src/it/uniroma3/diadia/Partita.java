@@ -24,11 +24,21 @@ public class Partita {
      */
 	public Partita(){
 		this.labirinto = new Labirinto();
-		this.labirinto.aggiungi_stanze_default();
 		this.giocatore = new Giocatore();
 		this.finita    = false;
+
+		this.labirinto.aggiungi_stanze_default();
 	}
 
+	public void setLabirintoCustom(Labirinto labirinto) {
+		this.labirinto = labirinto;
+	}
+
+	public void setGiocatoreCustom(Giocatore giocatore) {
+		this.giocatore = giocatore;
+	}
+
+	
 	public Stanza getStanzaVincente() {
 		return this.labirinto.getStanzaVincente();
 	}

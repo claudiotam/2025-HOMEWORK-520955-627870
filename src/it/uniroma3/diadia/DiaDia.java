@@ -34,6 +34,7 @@ public class DiaDia {
 
 	public DiaDia(IO ioconsole) {
 		this.partita   = new Partita();
+		
 		this.ioconsole = ioconsole;
 		this.factory   = new FabbricaDiComandiFisarmonica(ioconsole);
 	}

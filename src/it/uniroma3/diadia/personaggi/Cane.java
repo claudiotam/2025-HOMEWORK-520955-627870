@@ -4,7 +4,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.CiboPreferitoCane;
 
-public class Cane extends Personaggio {
+public class Cane extends NPC {
     private static final String MSG_AZIONE_OK = "Ti mordo! Hai perso un CFU. ";
     private static final String MSG_AZIONE_FALLITA = "Mi spiace, ti ho già morso una volta... ";
     private static final String NOME_DEFAULT = "Ilcane";    

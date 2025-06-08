@@ -2,7 +2,7 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.personaggi.Personaggio;
+import it.uniroma3.diadia.personaggi.NPC;
 
 public class ComandoSaluta implements Comando {
     private IO ioconsole;
@@ -14,7 +14,7 @@ public class ComandoSaluta implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-        Personaggio persona = partita.getStanzaCorrente().getPersonaggio();
+        NPC persona = partita.getStanzaCorrente().getPersonaggio();
         if (persona == null) {
             this.ioconsole.mostraMessaggio("Nessun salutabile nella stanza. ");
             return;
